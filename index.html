@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OBC Steel Shop Training – Overhead Crane</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background: #1f2937;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+}
+
+iframe {
+    width: 100%;
+    height: 500px;
+    border-radius: 8px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+.question {
+    margin-bottom: 15px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+footer {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin: 30px 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>OBC Steel Shop Training</h1>
+    <p>Overhead Crane Safety & Operation</p>
+</header>
+
+<div class="container">
+
+    <h2>Training Video</h2>
+
+    <iframe 
+        src="https://www.youtube.com/embed/duZjUHy856Y" 
+        title="OH Crane Training"
+        allowfullscreen>
+    </iframe>
+
+    <h2>Employee Confirmation (Yes / No)</h2>
+
+    <form action="mailto:YOUR_EMAIL@YOUR_DOMAIN.com" method="post" enctype="text/plain">
+
+        <p><strong>Employee Name:</strong><br>
+        <input type="text" name="Employee Name" required style="width:100%;padding:8px;"></p>
+
+        <p><strong>Email:</strong><br>
+        <input type="email" name="Email" required style="width:100%;padding:8px;"></p>
+
+        <hr>
+
+        <div class="question">1. I understand what an overhead crane is and its purpose.<br>
+            <input type="radio" name="Q1" value="Yes" required> Yes
+            <input type="radio" name="Q1" value="No"> No
+        </div>
+
+        <div class="question">2. I understand the hazards associated with overhead crane operation.<br>
+            <input type="radio" name="Q2" value="Yes" required> Yes
+            <input type="radio" name="Q2" value="No"> No
+        </div>
+
+        <div class="question">3. I understand proper hand signals and communication requirements.<br>
+            <input type="radio" name="Q3" value="Yes" required> Yes
+            <input type="radio" name="Q3" value="No"> No
+        </div>
+
+        <div class="question">4. I understand pre-use inspection requirements.<br>
+            <input type="radio" name="Q4" value="Yes" required> Yes
+            <input type="radio" name="Q4" value="No"> No
+        </div>
+
+        <div class="question">5. I understand proper rigging and load control practices.<br>
+            <input type="radio" name="Q5" value="Yes" required> Yes
+            <input type="radio" name="Q5" value="No"> No
+        </div>
+
+        <div class="question">6. I understand the importance of staying clear of suspended loads.<br>
+            <input type="radio" name="Q6" value="Yes" required> Yes
+            <input type="radio" name="Q6" value="No"> No
+        </div>
+
+        <div class="question">7. I understand emergency stop procedures.<br>
+            <input type="radio" name="Q7" value="Yes" required> Yes
+            <input type="radio" name="Q7" value="No"> No
+        </div>
+
+        <div class="question">8. I understand crane capacity limits and load ratings.<br>
+            <input type="radio" name="Q8" value="Yes" required> Yes
+            <input type="radio" name="Q8" value="No"> No
+        </div>
+
+        <div class="question">9. I understand that only trained personnel may operate cranes.<br>
+            <input type="radio" name="Q9" value="Yes" required> Yes
+            <input type="radio" name="Q9" value="No"> No
+        </div>
+
+        <div class="question">10. I confirm I have watched the entire training video.<br>
+            <input type="radio" name="Q10" value="Yes" required> Yes
+            <input type="radio" name="Q10" value="No"> No
+        </div>
+
+        <br>
+
+        <button type="submit">Submit Confirmation</button>
+
+    </form>
+
+</div>
+
+<footer>
+    © OBC Steel Shop Training – Internal Use Only
+</footer>
+
+</body>
+</html>
