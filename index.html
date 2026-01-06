@@ -16,7 +16,12 @@
       --btn2:#1d4ed8;
       --ring:#93c5fd;
       --line:#e5e7eb;
-      --ok:#16a34a;
+      --okbg:#ecfdf3;
+      --okbd:#bbf7d0;
+      --oktx:#14532d;
+      --errbg:#fef2f2;
+      --errbd:#fecaca;
+      --errtx:#991b1b;
     }
 
     *{ box-sizing:border-box; }
@@ -73,23 +78,35 @@
       margin:0 0 12px 0;
     }
 
-    /* ✅ On-page success banner */
-    .success-banner{
+    .subline{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+
+    /* banners */
+    .banner{
       display:none;
-      background:#ecfdf3;
-      border:1px solid #bbf7d0;
-      color:#14532d;
       padding:12px;
       border-radius:12px;
       margin: 0 0 12px 0;
-      font-weight:700;
+      font-weight:800;
     }
-
-    .success-banner small{
+    .banner small{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-top:4px;
-      color:#166534;
+    }
+    .banner.ok{
+      background:var(--okbg);
+      border:1px solid var(--okbd);
+      color:var(--oktx);
+    }
+    .banner.err{
+      background:var(--errbg);
+      border:1px solid var(--errbd);
+      color:var(--errtx);
     }
 
     /* Responsive YouTube embed */
@@ -101,7 +118,6 @@
       overflow:hidden;
       background:#000;
     }
-
     .video-wrap iframe{
       position:absolute;
       inset:0;
@@ -112,7 +128,7 @@
 
     label{
       display:block;
-      font-weight:700;
+      font-weight:800;
       margin:14px 0 6px 0;
       font-size:15px;
     }
@@ -122,7 +138,7 @@
       padding:12px 12px;
       border:1px solid var(--line);
       border-radius:10px;
-      font-size:16px; /* ✅ prevents iPhone zoom */
+      font-size:16px; /* prevents iPhone zoom */
       outline:none;
       background:#fff;
     }
@@ -146,13 +162,20 @@
       background:#fafafa;
     }
 
-    .q-text{
-      margin:0 0 10px 0;
-      font-weight:700;
+    .q-en{
+      margin:0 0 6px 0;
+      font-weight:800;
       font-size:15px;
     }
 
-    /* ✅ Big, tappable answers */
+    .q-es{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    /* big tappable answers */
     .answers{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -188,7 +211,7 @@
 
     .ack label{
       margin:0;
-      font-weight:600;
+      font-weight:700;
       font-size:14px;
       display:flex;
       gap:10px;
@@ -201,7 +224,15 @@
       margin-top:2px;
     }
 
-    /* Sticky submit bar (phone-friendly) */
+    .ack .es{
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    /* Sticky submit bar */
     .submitbar{
       position: sticky;
       bottom: 0;
@@ -219,7 +250,7 @@
       font-size:16px;
       border-radius:12px;
       cursor:pointer;
-      font-weight:700;
+      font-weight:800;
     }
 
     button:hover{ background:var(--btn2); }
@@ -255,13 +286,22 @@
 <div class="container">
   <div class="card">
 
-    <div id="successBanner" class="success-banner" role="status" aria-live="polite">
+    <!-- Success/Error banners (no redirect) -->
+    <div id="okBanner" class="banner ok" role="status" aria-live="polite">
       ✅ Training confirmation sent.
-      <small>You may close this page now.</small>
+      <small>✅ Confirmación enviada. You may close this page now / Ya puede cerrar esta página.</small>
+    </div>
+
+    <div id="errBanner" class="banner err" role="status" aria-live="polite">
+      ❌ Something went wrong sending your confirmation.
+      <small>❌ Ocurrió un error al enviar. Please try again / Intente de nuevo.</small>
     </div>
 
     <h2>Training Video</h2>
-    <p class="helper">Watch the full video, then complete the confirmation below.</p>
+    <p class="helper">
+      Watch the full video, then complete the confirmation below.
+      <span class="subline">Mire el video completo y luego complete la confirmación.</span>
+    </p>
 
     <div class="video-wrap">
       <iframe
@@ -272,97 +312,112 @@
     </div>
 
     <h2 style="margin-top:18px;">Employee Confirmation (Yes / No)</h2>
-    <p class="helper">Answer all questions. Tap the boxes — they’re sized for phones.</p>
+    <p class="helper">
+      Answer all questions. Tap the boxes — sized for phones.
+      <span class="subline">Responda todas las preguntas. Toque las casillas — diseñadas para celulares.</span>
+    </p>
 
-    <form id="trainingForm" action="https://formsubmit.co/Dave@OgdenBrothers.com" method="POST">
+    <!-- NOTE: We will submit via fetch() to prevent FormSubmit redirect -->
+    <form id="trainingForm" method="POST">
+      <!-- FormSubmit destination -->
       <input type="hidden" name="_subject" value="OBC Overhead Crane Training Completion">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
 
-      <!-- ✅ Option B: fixed training identifier (no domain/URL) -->
+      <!-- Fixed training identifier (no domain/URL) -->
       <input type="hidden" name="Training" value="OBC Overhead Crane Safety Training">
 
-      <label for="empname">Employee Name</label>
-      <input id="empname" type="text" name="Employee Name" required placeholder="First and last name" />
+      <label for="empname">Employee Name <span class="subline" style="display:inline;">/ Nombre del empleado</span></label>
+      <input id="empname" type="text" name="Employee Name" required placeholder="First and last name / Nombre y apellido" />
 
       <hr>
 
       <div class="question">
-        <p class="q-text">1. I understand what an overhead crane is and its purpose.</p>
+        <p class="q-en">1. I understand what an overhead crane is and its purpose.</p>
+        <p class="q-es">Entiendo qué es una grúa puente y su propósito.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q1" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q1" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q1" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">2. I understand the hazards associated with overhead crane operation.</p>
+        <p class="q-en">2. I understand the hazards associated with overhead crane operation.</p>
+        <p class="q-es">Entiendo los peligros asociados con la operación de la grúa puente.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q2" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q2" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q2" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">3. I understand proper hand signals and communication requirements.</p>
+        <p class="q-en">3. I understand proper hand signals and communication requirements.</p>
+        <p class="q-es">Entiendo las señales manuales correctas y los requisitos de comunicación.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q3" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q3" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q3" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">4. I understand pre-use inspection requirements.</p>
+        <p class="q-en">4. I understand pre-use inspection requirements.</p>
+        <p class="q-es">Entiendo los requisitos de inspección antes de usar.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q4" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q4" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q4" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">5. I understand proper rigging and load control practices.</p>
+        <p class="q-en">5. I understand proper rigging and load control practices.</p>
+        <p class="q-es">Entiendo las prácticas correctas de aparejo y control de carga.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q5" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q5" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q5" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">6. I understand the importance of staying clear of suspended loads.</p>
+        <p class="q-en">6. I understand the importance of staying clear of suspended loads.</p>
+        <p class="q-es">Entiendo la importancia de mantenerse alejado de cargas suspendidas.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q6" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q6" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q6" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">7. I understand emergency stop procedures.</p>
+        <p class="q-en">7. I understand emergency stop procedures.</p>
+        <p class="q-es">Entiendo los procedimientos de parada de emergencia.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q7" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q7" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q7" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">8. I understand crane capacity limits and load ratings.</p>
+        <p class="q-en">8. I understand crane capacity limits and load ratings.</p>
+        <p class="q-es">Entiendo los límites de capacidad de la grúa y las clasificaciones de carga.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q8" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q8" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q8" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">9. I understand that only trained personnel may operate cranes.</p>
+        <p class="q-en">9. I understand that only trained personnel may operate cranes.</p>
+        <p class="q-es">Entiendo que solo el personal capacitado puede operar grúas.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q9" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q9" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q9" value="No"> No</label>
         </div>
       </div>
 
       <div class="question">
-        <p class="q-text">10. I confirm I have watched the entire training video.</p>
+        <p class="q-en">10. I confirm I have watched the entire training video.</p>
+        <p class="q-es">Confirmo que vi todo el video de capacitación.</p>
         <div class="answers">
-          <label class="choice"><input type="radio" name="Q10" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q10" value="Yes" required> Yes / Sí</label>
           <label class="choice"><input type="radio" name="Q10" value="No"> No</label>
         </div>
       </div>
@@ -372,11 +427,12 @@
           <input type="checkbox" name="Acknowledgment" value="Checked" required>
           I confirm that I watched the training video in full, understand the material presented,
           and agree to follow all OBC safety policies and OSHA requirements.
+          <span class="es">Confirmo que vi el video completo, entiendo el material presentado y acepto seguir todas las políticas de seguridad de OBC y los requisitos de OSHA.</span>
         </label>
       </div>
 
       <div class="submitbar">
-        <button id="submitBtn" type="submit">Submit Confirmation</button>
+        <button id="submitBtn" type="submit">Submit Confirmation / Enviar</button>
       </div>
     </form>
 
@@ -388,15 +444,47 @@
 </footer>
 
 <script>
+  const DESTINATION = "https://formsubmit.co/ajax/Dave@OgdenBrothers.com"; // ajax endpoint prevents redirect
   const form = document.getElementById("trainingForm");
   const btn  = document.getElementById("submitBtn");
-  const banner = document.getElementById("successBanner");
+  const ok   = document.getElementById("okBanner");
+  const err  = document.getElementById("errBanner");
 
-  form.addEventListener("submit", function () {
+  function show(el){
+    el.style.display = "block";
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    ok.style.display = "none";
+    err.style.display = "none";
+
     btn.disabled = true;
-    btn.textContent = "Sending…";
-    banner.style.display = "block";
-    banner.scrollIntoView({ behavior: "smooth", block: "start" });
+    btn.textContent = "Sending… / Enviando…";
+
+    try{
+      const data = new FormData(form);
+
+      const res = await fetch(DESTINATION, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      });
+
+      if(!res.ok) throw new Error("Bad response");
+
+      show(ok);
+      form.reset();
+
+    }catch(ex){
+      show(err);
+
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Submit Confirmation / Enviar";
+    }
   });
 </script>
 
