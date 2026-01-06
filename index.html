@@ -17,7 +17,6 @@
       --ring:#93c5fd;
       --line:#e5e7eb;
       --ok:#16a34a;
-      --warn:#b45309;
     }
 
     *{ box-sizing:border-box; }
@@ -74,7 +73,7 @@
       margin:0 0 12px 0;
     }
 
-    /* ✅ Phone-first success banner (Option 1) */
+    /* ✅ On-page success banner */
     .success-banner{
       display:none;
       background:#ecfdf3;
@@ -256,7 +255,6 @@
 <div class="container">
   <div class="card">
 
-    <!-- ✅ Option 1: on-page success banner -->
     <div id="successBanner" class="success-banner" role="status" aria-live="polite">
       ✅ Training confirmation sent.
       <small>You may close this page now.</small>
@@ -276,16 +274,13 @@
     <h2 style="margin-top:18px;">Employee Confirmation (Yes / No)</h2>
     <p class="helper">Answer all questions. Tap the boxes — they’re sized for phones.</p>
 
-    <!-- Emails ALWAYS go to Dave@OgdenBrothers.com -->
     <form id="trainingForm" action="https://formsubmit.co/Dave@OgdenBrothers.com" method="POST">
-
-      <!-- FormSubmit settings -->
       <input type="hidden" name="_subject" value="OBC Overhead Crane Training Completion">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
 
-      <!-- Optional: include page URL in the email -->
-      <input type="hidden" name="Training Page URL" id="pageUrlField" value="">
+      <!-- ✅ Option B: fixed training identifier (no domain/URL) -->
+      <input type="hidden" name="Training" value="OBC Overhead Crane Safety Training">
 
       <label for="empname">Employee Name</label>
       <input id="empname" type="text" name="Employee Name" required placeholder="First and last name" />
@@ -380,7 +375,6 @@
         </label>
       </div>
 
-      <!-- ✅ Option 2: prevent double submit + show "Sending..." -->
       <div class="submitbar">
         <button id="submitBtn" type="submit">Submit Confirmation</button>
       </div>
@@ -394,20 +388,13 @@
 </footer>
 
 <script>
-  // Put the current page URL into the email for auditing
-  document.getElementById("pageUrlField").value = window.location.href;
-
   const form = document.getElementById("trainingForm");
   const btn  = document.getElementById("submitBtn");
   const banner = document.getElementById("successBanner");
 
-  // ✅ Option 2: disable button immediately (prevents double taps)
   form.addEventListener("submit", function () {
     btn.disabled = true;
     btn.textContent = "Sending…";
-
-    // ✅ Option 1: show success banner after submit starts (feels complete on phones)
-    // Note: email is still processed by FormSubmit; this is just user feedback.
     banner.style.display = "block";
     banner.scrollIntoView({ behavior: "smooth", block: "start" });
   });
