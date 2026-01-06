@@ -1,159 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>OBC Steel Shop Training – Overhead Crane</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>OBC Steel Shop Training – Overhead Crane</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f4f6f8;
-    margin: 0;
-    padding: 0;
-}
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --brand:#1f2937;
+      --btn:#2563eb;
+      --btn2:#1d4ed8;
+      --ring:#93c5fd;
+      --line:#e5e7eb;
+      --ok:#16a34a;
+      --warn:#b45309;
+    }
 
-header {
-    background: #1f2937;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
+    *{ box-sizing:border-box; }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.35;
+    }
 
-iframe {
-    width: 100%;
-    height: 500px;
-    border-radius: 8px;
-}
+    header{
+      background:var(--brand);
+      color:#fff;
+      padding:20px 14px;
+      text-align:center;
+    }
 
-h2 {
-    margin-top: 30px;
-}
+    header h1{
+      margin:0 0 6px 0;
+      font-size:22px;
+      letter-spacing:.2px;
+    }
 
-.question {
-    margin-bottom: 15px;
-}
+    header p{
+      margin:0;
+      opacity:.92;
+      font-size:14px;
+    }
 
-button {
-    background: #2563eb;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+    .container{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px;
+    }
 
-button:hover {
-    background: #1d4ed8;
-}
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
 
-footer {
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    margin: 30px 0;
-}
-</style>
+    h2{
+      margin: 0 0 12px 0;
+      font-size:18px;
+    }
+
+    .helper{
+      color:var(--muted);
+      font-size:14px;
+      margin:0 0 12px 0;
+    }
+
+    /* ✅ Phone-first success banner (Option 1) */
+    .success-banner{
+      display:none;
+      background:#ecfdf3;
+      border:1px solid #bbf7d0;
+      color:#14532d;
+      padding:12px;
+      border-radius:12px;
+      margin: 0 0 12px 0;
+      font-weight:700;
+    }
+
+    .success-banner small{
+      display:block;
+      font-weight:600;
+      margin-top:4px;
+      color:#166534;
+    }
+
+    /* Responsive YouTube embed */
+    .video-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%; /* 16:9 */
+      border-radius:12px;
+      overflow:hidden;
+      background:#000;
+    }
+
+    .video-wrap iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      margin:14px 0 6px 0;
+      font-size:15px;
+    }
+
+    input[type="text"]{
+      width:100%;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:16px; /* ✅ prevents iPhone zoom */
+      outline:none;
+      background:#fff;
+    }
+
+    input[type="text"]:focus{
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px rgba(147,197,253,.4);
+    }
+
+    hr{
+      border:none;
+      border-top:1px solid var(--line);
+      margin:16px 0;
+    }
+
+    .question{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      margin:12px 0;
+      background:#fafafa;
+    }
+
+    .q-text{
+      margin:0 0 10px 0;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    /* ✅ Big, tappable answers */
+    .answers{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .choice{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+      min-height:48px;
+      touch-action: manipulation;
+    }
+
+    .choice input{
+      transform: scale(1.2);
+      margin:0;
+    }
+
+    .ack{
+      margin-top:14px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+    }
+
+    .ack label{
+      margin:0;
+      font-weight:600;
+      font-size:14px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      cursor:pointer;
+    }
+
+    .ack input{
+      transform: scale(1.2);
+      margin-top:2px;
+    }
+
+    /* Sticky submit bar (phone-friendly) */
+    .submitbar{
+      position: sticky;
+      bottom: 0;
+      margin-top:16px;
+      padding-top:12px;
+      background: linear-gradient(to top, rgba(244,246,248,1) 40%, rgba(244,246,248,0));
+    }
+
+    button{
+      width:100%;
+      background:var(--btn);
+      color:white;
+      border:none;
+      padding:14px 18px;
+      font-size:16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+    }
+
+    button:hover{ background:var(--btn2); }
+
+    button:disabled{
+      opacity:.7;
+      cursor:not-allowed;
+    }
+
+    footer{
+      text-align:center;
+      font-size:13px;
+      color:#6b7280;
+      padding:18px 12px 26px;
+    }
+
+    @media (min-width: 700px){
+      header h1{ font-size:26px; }
+      header p{ font-size:15px; }
+      .card{ padding:20px; }
+      h2{ font-size:20px; }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <h1>OBC Steel Shop Training</h1>
-    <p>Overhead Crane Safety & Operation</p>
+  <h1>OBC Steel Shop Training</h1>
+  <p>Overhead Crane Safety &amp; Operation</p>
 </header>
 
 <div class="container">
+  <div class="card">
+
+    <!-- ✅ Option 1: on-page success banner -->
+    <div id="successBanner" class="success-banner" role="status" aria-live="polite">
+      ✅ Training confirmation sent.
+      <small>You may close this page now.</small>
+    </div>
 
     <h2>Training Video</h2>
+    <p class="helper">Watch the full video, then complete the confirmation below.</p>
 
-    <iframe 
-        src="https://www.youtube.com/embed/duZjUHy856Y" 
-        title="OH Crane Training"
-        allowfullscreen>
-    </iframe>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/duZjUHy856Y"
+        title="Overhead Crane Training"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
 
-    <h2>Employee Confirmation (Yes / No)</h2>
+    <h2 style="margin-top:18px;">Employee Confirmation (Yes / No)</h2>
+    <p class="helper">Answer all questions. Tap the boxes — they’re sized for phones.</p>
 
-    <form action="mailto:YOUR_EMAIL@YOUR_DOMAIN.com" method="post" enctype="text/plain">
+    <!-- Emails ALWAYS go to Dave@OgdenBrothers.com -->
+    <form id="trainingForm" action="https://formsubmit.co/Dave@OgdenBrothers.com" method="POST">
 
-        <p><strong>Employee Name:</strong><br>
-        <input type="text" name="Employee Name" required style="width:100%;padding:8px;"></p>
+      <!-- FormSubmit settings -->
+      <input type="hidden" name="_subject" value="OBC Overhead Crane Training Completion">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
 
-        <p><strong>Email:</strong><br>
-        <input type="email" name="Email" required style="width:100%;padding:8px;"></p>
+      <!-- Optional: include page URL in the email -->
+      <input type="hidden" name="Training Page URL" id="pageUrlField" value="">
 
-        <hr>
+      <label for="empname">Employee Name</label>
+      <input id="empname" type="text" name="Employee Name" required placeholder="First and last name" />
 
-        <div class="question">1. I understand what an overhead crane is and its purpose.<br>
-            <input type="radio" name="Q1" value="Yes" required> Yes
-            <input type="radio" name="Q1" value="No"> No
+      <hr>
+
+      <div class="question">
+        <p class="q-text">1. I understand what an overhead crane is and its purpose.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q1" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q1" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">2. I understand the hazards associated with overhead crane operation.<br>
-            <input type="radio" name="Q2" value="Yes" required> Yes
-            <input type="radio" name="Q2" value="No"> No
+      <div class="question">
+        <p class="q-text">2. I understand the hazards associated with overhead crane operation.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q2" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q2" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">3. I understand proper hand signals and communication requirements.<br>
-            <input type="radio" name="Q3" value="Yes" required> Yes
-            <input type="radio" name="Q3" value="No"> No
+      <div class="question">
+        <p class="q-text">3. I understand proper hand signals and communication requirements.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q3" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q3" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">4. I understand pre-use inspection requirements.<br>
-            <input type="radio" name="Q4" value="Yes" required> Yes
-            <input type="radio" name="Q4" value="No"> No
+      <div class="question">
+        <p class="q-text">4. I understand pre-use inspection requirements.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q4" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q4" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">5. I understand proper rigging and load control practices.<br>
-            <input type="radio" name="Q5" value="Yes" required> Yes
-            <input type="radio" name="Q5" value="No"> No
+      <div class="question">
+        <p class="q-text">5. I understand proper rigging and load control practices.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q5" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q5" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">6. I understand the importance of staying clear of suspended loads.<br>
-            <input type="radio" name="Q6" value="Yes" required> Yes
-            <input type="radio" name="Q6" value="No"> No
+      <div class="question">
+        <p class="q-text">6. I understand the importance of staying clear of suspended loads.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q6" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q6" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">7. I understand emergency stop procedures.<br>
-            <input type="radio" name="Q7" value="Yes" required> Yes
-            <input type="radio" name="Q7" value="No"> No
+      <div class="question">
+        <p class="q-text">7. I understand emergency stop procedures.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q7" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q7" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">8. I understand crane capacity limits and load ratings.<br>
-            <input type="radio" name="Q8" value="Yes" required> Yes
-            <input type="radio" name="Q8" value="No"> No
+      <div class="question">
+        <p class="q-text">8. I understand crane capacity limits and load ratings.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q8" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q8" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">9. I understand that only trained personnel may operate cranes.<br>
-            <input type="radio" name="Q9" value="Yes" required> Yes
-            <input type="radio" name="Q9" value="No"> No
+      <div class="question">
+        <p class="q-text">9. I understand that only trained personnel may operate cranes.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q9" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q9" value="No"> No</label>
         </div>
+      </div>
 
-        <div class="question">10. I confirm I have watched the entire training video.<br>
-            <input type="radio" name="Q10" value="Yes" required> Yes
-            <input type="radio" name="Q10" value="No"> No
+      <div class="question">
+        <p class="q-text">10. I confirm I have watched the entire training video.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q10" value="Yes" required> Yes</label>
+          <label class="choice"><input type="radio" name="Q10" value="No"> No</label>
         </div>
+      </div>
 
-        <br>
+      <div class="ack">
+        <label>
+          <input type="checkbox" name="Acknowledgment" value="Checked" required>
+          I confirm that I watched the training video in full, understand the material presented,
+          and agree to follow all OBC safety policies and OSHA requirements.
+        </label>
+      </div>
 
-        <button type="submit">Submit Confirmation</button>
-
+      <!-- ✅ Option 2: prevent double submit + show "Sending..." -->
+      <div class="submitbar">
+        <button id="submitBtn" type="submit">Submit Confirmation</button>
+      </div>
     </form>
 
+  </div>
 </div>
 
 <footer>
-    © OBC Steel Shop Training – Internal Use Only
+  © OBC Steel Shop Training – Internal Use Only
 </footer>
+
+<script>
+  // Put the current page URL into the email for auditing
+  document.getElementById("pageUrlField").value = window.location.href;
+
+  const form = document.getElementById("trainingForm");
+  const btn  = document.getElementById("submitBtn");
+  const banner = document.getElementById("successBanner");
+
+  // ✅ Option 2: disable button immediately (prevents double taps)
+  form.addEventListener("submit", function () {
+    btn.disabled = true;
+    btn.textContent = "Sending…";
+
+    // ✅ Option 1: show success banner after submit starts (feels complete on phones)
+    // Note: email is still processed by FormSubmit; this is just user feedback.
+    banner.style.display = "block";
+    banner.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+</script>
 
 </body>
 </html>
