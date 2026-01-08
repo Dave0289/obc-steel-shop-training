@@ -4,24 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OBC Steel Shop Training Portal</title>
-  <meta name="description" content="OBC Steel Shop Training Portal - Select your training module." />
+  <meta name="description" content="OBC Steel Shop Training Portal" />
 
   <style>
     :root{
       --bg1:#0b1220;
       --bg2:#0f1a30;
-      --card:#111c34cc;
-      --cardSolid:#101a30;
-      --border:#263554;
       --ink:#eaf0ff;
       --muted:#b7c4e0;
-      --accent:#5bc0be; /* subtle teal accent */
-      --accent2:#7aa7ff;
+      --accent:#5bc0be;
       --shadow: 0 18px 45px rgba(0,0,0,.45);
       --radius: 18px;
     }
 
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -34,7 +31,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:28px 18px;
+      padding:26px 18px;
     }
 
     .wrap{
@@ -43,10 +40,10 @@
 
     .header{
       display:flex;
-      gap:14px;
       align-items:center;
       justify-content:space-between;
       flex-wrap:wrap;
+      gap:14px;
       margin-bottom:18px;
     }
 
@@ -62,21 +59,11 @@
       border-radius:14px;
       background: linear-gradient(135deg, rgba(91,192,190,.95), rgba(122,167,255,.85));
       box-shadow: 0 12px 28px rgba(0,0,0,.35);
-      position:relative;
-      overflow:hidden;
-    }
-    .badge:before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 40%);
-      transform:rotate(20deg);
     }
 
     h1{
       margin:0;
       font-size: clamp(22px, 3vw, 34px);
-      letter-spacing:.2px;
       line-height:1.15;
     }
 
@@ -89,18 +76,16 @@
     .meta{
       color:var(--muted);
       font-size:13px;
-      opacity:.95;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(10,16,30,.35);
-      border-radius: 999px;
-      backdrop-filter: blur(10px);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(10,16,30,.45);
     }
 
     .panel{
       border:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
       box-shadow: var(--shadow);
       overflow:hidden;
     }
@@ -113,34 +98,30 @@
       display:grid;
       grid-template-columns: repeat(12, 1fr);
       gap:14px;
-      margin-top:12px;
     }
 
     .card{
       grid-column: span 6;
-      border-radius: 16px;
+      border-radius:16px;
       border:1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(17,28,52,.82), rgba(16,26,48,.65));
-      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(17,28,52,.85), rgba(16,26,48,.65));
       box-shadow: 0 14px 28px rgba(0,0,0,.25);
-      position:relative;
-      overflow:hidden;
-      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-      min-height: 152px;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      min-height:150px;
     }
 
     .card:hover{
       transform: translateY(-2px);
       border-color: rgba(91,192,190,.35);
-      box-shadow: 0 18px 40px rgba(0,0,0,.35);
+      box-shadow: 0 20px 44px rgba(0,0,0,.35);
     }
 
     .card a{
       display:flex;
-      gap:14px;
-      padding:18px;
-      color:inherit;
+      gap:16px;
+      padding:20px;
       text-decoration:none;
+      color:inherit;
       height:100%;
       align-items:flex-start;
     }
@@ -149,8 +130,8 @@
       width:46px;
       height:46px;
       border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.10);
       display:grid;
       place-items:center;
       flex:0 0 auto;
@@ -159,81 +140,34 @@
     .card h2{
       margin:0;
       font-size:18px;
-      letter-spacing:.2px;
     }
 
     .card p{
-      margin:6px 0 0 0;
+      margin:8px 0 0 0;
       color:var(--muted);
-      line-height:1.35;
       font-size:14px;
-    }
-
-    .pillRow{
-      margin-top:12px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-    }
-
-    .pill{
-      font-size:12px;
-      color: rgba(234,240,255,.92);
-      padding:6px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
+      line-height:1.35;
     }
 
     .cta{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      border-top:1px solid rgba(255,255,255,.08);
+      margin-top:16px;
       padding-top:14px;
-    }
-
-    .hint{
+      border-top:1px solid rgba(255,255,255,.08);
       color:var(--muted);
       font-size:13px;
-    }
-
-    .smallLinks{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .smallLinks a{
-      color: rgba(234,240,255,.92);
-      text-decoration:none;
-      font-size:13px;
-      padding:8px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      transition: border-color .15s ease, transform .15s ease;
-    }
-    .smallLinks a:hover{
-      border-color: rgba(122,167,255,.35);
-      transform: translateY(-1px);
+      text-align:center;
     }
 
     .footer{
       margin-top:12px;
       text-align:center;
-      color: rgba(183,196,224,.85);
       font-size:12px;
+      color: rgba(183,196,224,.85);
     }
 
-    /* Mobile */
     @media (max-width: 860px){
       .card{ grid-column: span 12; }
       .meta{ width:100%; text-align:center; }
-      .header{ gap:10px; }
     }
   </style>
 </head>
@@ -242,13 +176,12 @@
   <div class="wrap">
     <div class="header">
       <div class="titleBlock">
-        <div class="badge" aria-hidden="true"></div>
+        <div class="badge"></div>
         <div>
           <h1>OBC Steel Shop Training Portal</h1>
           <p class="sub">Select the module you are completing today.</p>
         </div>
       </div>
-
       <div class="meta">Internal Use • Training Modules</div>
     </div>
 
@@ -258,46 +191,36 @@
 
           <!-- Overhead Crane -->
           <div class="card">
-            <a href="/overhead-crane.html" aria-label="Open Overhead Crane & Rigging Training">
-              <div class="icon" aria-hidden="true">
-                <!-- simple crane-ish icon -->
+            <a href="/overhead-crane.html">
+              <div class="icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M7 20V6h7l2 3h3v11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M14 9v4a3 3 0 1 1-6 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M4 20h16" stroke="currentColor" stroke-width="2"/>
+                  <path d="M7 20V6h7l2 3h3v11" stroke="currentColor" stroke-width="2"/>
+                  <path d="M14 9v4a3 3 0 1 1-6 0" stroke="currentColor" stroke-width="2"/>
                 </svg>
               </div>
               <div>
                 <h2>Overhead Crane &amp; Rigging</h2>
                 <p>Operating basics, inspection, safe lifts, and rigging awareness for the steel shop.</p>
-                <div class="pillRow">
-                  <span class="pill">Video + Quiz</span>
-                  <span class="pill">Shop Floor</span>
-                </div>
               </div>
             </a>
           </div>
 
           <!-- Forklift -->
           <div class="card">
-            <a href="/forklift.html" aria-label="Open Forklift Training">
-              <div class="icon" aria-hidden="true">
-                <!-- simple forklift-ish icon -->
+            <a href="/forklift.html">
+              <div class="icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 17h8V7H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M12 17h5V8h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M17 17v-2h3v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M6.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" stroke-width="2"/>
-                  <path d="M16.5 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" stroke="currentColor" stroke-width="2"/>
+                  <path d="M4 17h8V7H7" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 17h5V8h-5" stroke="currentColor" stroke-width="2"/>
+                  <path d="M17 17v-2h3v2" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="6.5" cy="18.5" r="1.5" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="16.5" cy="18.5" r="1.5" stroke="currentColor" stroke-width="2"/>
                 </svg>
               </div>
               <div>
                 <h2>Forklift Operator</h2>
                 <p>Safe operation, load handling, pedestrian awareness, and daily checks for forklifts.</p>
-                <div class="pillRow">
-                  <span class="pill">Video + Quiz</span>
-                  <span class="pill">Yard / Shop</span>
-                </div>
               </div>
             </a>
           </div>
@@ -305,13 +228,7 @@
         </div>
 
         <div class="cta">
-          <div class="hint">
-            Tip: You can bookmark a specific module URL if you want to go straight to it.
-          </div>
-          <div class="smallLinks">
-            <a href="/overhead-crane.html">Overhead Crane</a>
-            <a href="/forklift.html">Forklift</a>
-          </div>
+          Tap a training module above to begin.
         </div>
       </div>
     </div>
