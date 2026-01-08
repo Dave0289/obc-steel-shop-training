@@ -34,9 +34,7 @@
       padding:26px 18px;
     }
 
-    .wrap{
-      width:min(1100px, 100%);
-    }
+    .wrap{ width:min(1100px, 100%); }
 
     .header{
       display:flex;
@@ -59,6 +57,7 @@
       border-radius:14px;
       background: linear-gradient(135deg, rgba(91,192,190,.95), rgba(122,167,255,.85));
       box-shadow: 0 12px 28px rgba(0,0,0,.35);
+      flex:0 0 auto;
     }
 
     h1{
@@ -80,6 +79,7 @@
       border-radius:999px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(10,16,30,.45);
+      white-space:nowrap;
     }
 
     .panel{
@@ -90,9 +90,7 @@
       overflow:hidden;
     }
 
-    .panelInner{
-      padding:20px;
-    }
+    .panelInner{ padding:20px; }
 
     .grid{
       display:grid;
@@ -135,6 +133,8 @@
       display:grid;
       place-items:center;
       flex:0 0 auto;
+      font-size:20px; /* for emoji icons */
+      line-height:1;
     }
 
     .card h2{
@@ -169,6 +169,34 @@
       .card{ grid-column: span 12; }
       .meta{ width:100%; text-align:center; }
     }
+
+    /* Coming Soon / Disabled cards */
+    .card.disabled{
+      opacity: .7;
+    }
+    .card.disabled:hover{
+      transform: none;
+      border-color: rgba(255,255,255,.10);
+      box-shadow: 0 14px 28px rgba(0,0,0,.25);
+    }
+    .card.disabled a{
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    .statusRow{
+      margin-top:10px;
+      display:flex;
+    }
+
+    .status{
+      font-size:12px;
+      padding:6px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(234,240,255,.95);
+    }
   </style>
 </head>
 
@@ -189,16 +217,10 @@
       <div class="panelInner">
         <div class="grid">
 
-          <!-- Overhead Crane -->
+          <!-- ACTIVE -->
           <div class="card">
             <a href="/overhead-crane.html">
-              <div class="icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 20h16" stroke="currentColor" stroke-width="2"/>
-                  <path d="M7 20V6h7l2 3h3v11" stroke="currentColor" stroke-width="2"/>
-                  <path d="M14 9v4a3 3 0 1 1-6 0" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </div>
+              <div class="icon">🏗️</div>
               <div>
                 <h2>Overhead Crane &amp; Rigging</h2>
                 <p>Operating basics, inspection, safe lifts, and rigging awareness for the steel shop.</p>
@@ -206,21 +228,85 @@
             </a>
           </div>
 
-          <!-- Forklift -->
+          <!-- ACTIVE -->
           <div class="card">
             <a href="/forklift.html">
-              <div class="icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M4 17h8V7H7" stroke="currentColor" stroke-width="2"/>
-                  <path d="M12 17h5V8h-5" stroke="currentColor" stroke-width="2"/>
-                  <path d="M17 17v-2h3v2" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="6.5" cy="18.5" r="1.5" stroke="currentColor" stroke-width="2"/>
-                  <circle cx="16.5" cy="18.5" r="1.5" stroke="currentColor" stroke-width="2"/>
-                </svg>
-              </div>
+              <div class="icon">🚜</div>
               <div>
                 <h2>Forklift Operator</h2>
                 <p>Safe operation, load handling, pedestrian awareness, and daily checks for forklifts.</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🪜</div>
+              <div>
+                <h2>Fall Protection</h2>
+                <p>Working at heights, harness use, and fall prevention in the field and shop.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🛑</div>
+              <div>
+                <h2>Confined Space</h2>
+                <p>Hazard awareness, entry requirements, monitoring, and rescue basics.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🛗</div>
+              <div>
+                <h2>Aerial &amp; Scissor Lift</h2>
+                <p>Safe lift operation, fall hazards, spotter practices, and site awareness.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🔒</div>
+              <div>
+                <h2>LOTO (Lockout / Tagout)</h2>
+                <p>Energy isolation basics, procedures, and preventing unexpected startup.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🫁</div>
+              <div>
+                <h2>Silica Awareness</h2>
+                <p>Exposure risks, controls, and basic protective practices for silica dust.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
+              </div>
+            </a>
+          </div>
+
+          <!-- COMING SOON -->
+          <div class="card disabled">
+            <a href="#">
+              <div class="icon">🩺</div>
+              <div>
+                <h2>First Aid / CPR / AED</h2>
+                <p>Emergency response basics and AED awareness for jobsite readiness.</p>
+                <div class="statusRow"><span class="status">Coming Soon</span></div>
               </div>
             </a>
           </div>
