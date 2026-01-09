@@ -1,41 +1,10 @@
-OBC Steel Shop – Weekly Toolbox Talk
-DATE: 01-09-2026
-TOPIC: Housekeeping & Slip / Trip Hazards
+WEEKLY SAFETY TOOLBOX TALK – [TITLE]
+Date: [YYYY-MM-DD]
 
-ENGLISH
-Good housekeeping is a critical part of maintaining a safe steel shop. Slips, trips, and falls are among the most common causes of injuries in fabrication environments, and they are almost always preventable.
-
-Key points to remember:
-• Keep walkways, aisles, and work areas clear at all times.
-• Remove scrap, banding, welding rod stubs, and cutoffs promptly.
-• Clean up oil, grease, water, or coolant spills immediately.
-• Do not leave hoses, cords, or leads stretched across walk paths.
-• Store tools and materials in designated locations when not in use.
-• Watch footing when transitioning between shop floor, yard, and uneven surfaces.
-
-Everyone in the shop is responsible for housekeeping — not just the last person who worked in an area. A clean shop is a safer shop.
-
-If you see a hazard that you cannot correct immediately, notify your supervisor so it can be addressed.
-
-Remember:
-If you don’t have time to clean it up, you don’t have time to get hurt by it.
+ENGLISH:
+[Paste the English toolbox talk text here.]
 
 ------------------------------------------------------------
 
-ESPAÑOL
-Mantener el área limpia y ordenada es una parte crítica de la seguridad en el taller de acero. Los resbalones, tropiezos y caídas son de las causas más comunes de lesiones en fabricación, y casi siempre se pueden prevenir.
-
-Puntos clave para recordar:
-• Mantenga los pasillos, áreas de paso y zonas de trabajo despejados en todo momento.
-• Retire la chatarra, flejes/bandas, puntas de varilla, y recortes lo más pronto posible.
-• Limpie de inmediato cualquier derrame de aceite, grasa, agua o refrigerante.
-• No deje mangueras, cables o extensiones atravesando las áreas de paso.
-• Guarde herramientas y materiales en sus lugares designados cuando no se estén usando.
-• Tenga cuidado al caminar cuando cambie del piso del taller al patio o a superficies irregulares.
-
-Todos en el taller son responsables del orden y la limpieza — no solo la última persona que trabajó en el área. Un taller limpio es un taller más seguro.
-
-Si ve un peligro que no puede corregir de inmediato, avise a su supervisor para que se atienda.
-
-Recuerde:
-Si no tiene tiempo para limpiarlo, no tiene tiempo para lastimarse por eso.
+ESPAÑOL:
+[Pegue aquí la charla de seguridad en español.]
