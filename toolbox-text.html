@@ -3,386 +3,221 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OBC Steel Shop – Weekly Toolbox Talk</title>
-
-  <!-- Extra cache prevention (JS fetch below is the real enforcement) -->
-  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
-  <meta http-equiv="Pragma" content="no-cache" />
-  <meta http-equiv="Expires" content="0" />
+  <title>Weekly Safety Toolbox Talk</title>
 
   <style>
     :root{
-      --bg1:#0b1220;
-      --bg2:#0f1a30;
-      --card:#0f1a2b;
-      --ink:#eaf0ff;
-      --muted:#b7c4e0;
-      --accent:#5bc0be;
-      --danger:#ff5a6a;
-      --shadow: 0 18px 45px rgba(0,0,0,.45);
-      --radius: 18px;
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --btn:#2563eb;
+      --border:#e5e7eb;
+      --radius:16px;
+      --shadow:0 12px 35px rgba(0,0,0,.12);
     }
+
     *{ box-sizing:border-box; }
+
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
-      background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(91,192,190,.18), transparent 60%),
-        radial-gradient(1000px 600px at 85% 40%, rgba(120,140,255,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-      padding:26px;
+      background:var(--bg);
+      padding:18px;
     }
-    .wrap{ max-width:980px; margin:0 auto; }
-    .top{
+
+    .wrap{
+      width:min(980px, 100%);
+      margin:0 auto;
+    }
+
+    .topbar{
       display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:18px;
-    }
-    .brand h1{
-      margin:0;
-      font-size:26px;
-      letter-spacing:.2px;
-      line-height:1.1;
-    }
-    .brand p{
-      margin:8px 0 0;
-      color:var(--muted);
-      font-size:14px;
-    }
-    .pill{
-      display:inline-flex;
       align-items:center;
-      gap:8px;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .title{
+      margin:0;
+      font-size:22px;
+      line-height:1.2;
+    }
+
+    .back{
+      text-decoration:none;
+      color:var(--ink);
+      border:1px solid var(--border);
       padding:10px 12px;
       border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      color:var(--muted);
-      font-size:13px;
-      white-space:nowrap;
+      background:#fff;
     }
-    .grid{
-      display:grid;
-      grid-template-columns: 1.05fr .95fr;
-      gap:16px;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns:1fr; }
-      body{ padding:16px; }
-      .pill{ display:none; }
-    }
+
     .card{
-      background:rgba(15, 26, 43, .88);
-      border:1px solid rgba(255,255,255,.10);
+      background:var(--card);
+      border:1px solid var(--border);
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      overflow:hidden;
+      padding:16px;
     }
-    .card-h{
-      padding:16px 18px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-    }
-    .card-h h2{
-      margin:0;
-      font-size:16px;
-      letter-spacing:.2px;
-    }
-    .hint{
-      color:var(--muted);
-      font-size:12px;
-    }
-    .card-b{ padding:18px; }
 
-    label{ display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
+    .sectionTitle{
+      margin:0 0 8px 0;
+      font-size:16px;
+    }
+
+    .talk{
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      background:#fafafa;
+      line-height:1.35;
+      font-size:15px;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      min-height:220px;
+    }
+
+    .form{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    label{
+      font-size:14px;
+      color:var(--muted);
+    }
+
     input[type="text"]{
       width:100%;
       padding:12px 12px;
+      border:1px solid var(--border);
       border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      color:var(--ink);
-      outline:none;
-      font-size:15px;
+      font-size:16px;
     }
-    input[type="text"]::placeholder{ color: rgba(183,196,224,.65); }
 
-    .row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    @media (max-width: 520px){ .row{ grid-template-columns:1fr; } }
-
-    .checks{
-      display:grid;
-      gap:10px;
-      margin-top:12px;
-    }
-    .check{
+    .row{
       display:flex;
-      gap:10px;
       align-items:flex-start;
-      padding:12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.04);
-    }
-    .check input{ margin-top:3px; transform: scale(1.15); }
-    .check span{ font-size:14px; color:var(--ink); }
-    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
-    button{
-      border:0;
-      padding:12px 14px;
-      border-radius:14px;
-      font-weight:700;
-      cursor:pointer;
-      font-size:14px;
-      color:#081018;
-      background:linear-gradient(180deg, rgba(91,192,190,1), rgba(65,170,168,1));
-      box-shadow: 0 12px 26px rgba(91,192,190,.22);
-    }
-    button.secondary{
-      background:rgba(255,255,255,.08);
-      color:var(--ink);
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:none;
-      font-weight:650;
-    }
-    .err{
-      margin-top:10px;
-      color:var(--danger);
-      font-size:13px;
-      display:none;
+      gap:10px;
     }
 
-    pre#toolboxContent{
-      margin:0;
-      white-space:pre-wrap;
-      word-wrap:break-word;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size:14px;
-      line-height:1.45;
-      color:rgba(234,240,255,.95);
+    .row input{
+      margin-top:4px;
+      transform:scale(1.2);
     }
-    .small{
-      margin-top:10px;
-      color:var(--muted);
-      font-size:12px;
+
+    .btn{
+      width:100%;
+      padding:12px 14px;
+      border:none;
+      border-radius:12px;
+      background:var(--btn);
+      color:#fff;
+      font-size:16px;
+      cursor:pointer;
     }
-    .footer{
-      margin-top:16px;
-      color:rgba(183,196,224,.75);
-      font-size:12px;
-      text-align:center;
-    }
-    a{ color: var(--accent); }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <div class="top">
-      <div class="brand">
-        <h1>OBC Steel Shop – Weekly Toolbox Talk</h1>
-        <p>Read the toolbox talk below, then enter your name and submit confirmation.</p>
+    <div class="topbar">
+      <h1 class="title">Weekly Safety Toolbox Talk</h1>
+      <a class="back" href="/index.html">← Back to Portal</a>
+    </div>
+
+    <div class="card">
+      <h2 class="sectionTitle">Toolbox Talk (English + Español)</h2>
+      <div id="talk" class="talk">Loading toolbox talk…</div>
+
+      <div class="form">
+        <div>
+          <label for="name">Employee Name</label>
+          <input id="name" type="text" placeholder="Type your full name" />
+        </div>
+
+        <div class="row">
+          <input id="ack" type="checkbox" />
+          <label for="ack">
+            I acknowledge that I have read and understood today’s Weekly Safety Toolbox Talk.
+          </label>
+        </div>
+
+        <button id="sendBtn" class="btn" type="button">Send Acknowledgment Email</button>
       </div>
-      <div class="pill" id="todayPill">Loading date…</div>
-    </div>
-
-    <div class="grid">
-
-      <!-- LEFT: TOOLBOX TALK TEXT -->
-      <section class="card">
-        <div class="card-h">
-          <h2 id="talkTitle">Toolbox Talk</h2>
-          <div class="hint" id="talkStatus">Loading latest talk…</div>
-        </div>
-        <div class="card-b">
-          <pre id="toolboxContent">Loading latest toolbox talk…</pre>
-          <div class="small">
-            If you ever see an old talk, refresh the page (Ctrl+F5). This page is designed to always pull the latest talk.
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT: CONFIRMATION -->
-      <section class="card">
-        <div class="card-h">
-          <h2>Confirmation</h2>
-          <div class="hint">Sends an email to Dave</div>
-        </div>
-        <div class="card-b">
-
-          <div class="row">
-            <div>
-              <label for="employeeName">Employee Name</label>
-              <input id="employeeName" type="text" placeholder="Type your first and last name" autocomplete="name" />
-            </div>
-            <div>
-              <label for="talkTitleInput">Toolbox Talk Title</label>
-              <input id="talkTitleInput" type="text" placeholder="Example: Ladder Safety" />
-            </div>
-          </div>
-
-          <div class="checks">
-            <div class="check">
-              <input id="c1" type="checkbox" />
-              <span>I read and understood the toolbox talk above.</span>
-            </div>
-            <div class="check">
-              <input id="c2" type="checkbox" />
-              <span>I understand I can ask my supervisor questions at any time.</span>
-            </div>
-            <div class="check">
-              <input id="c3" type="checkbox" />
-              <span>I confirm I will follow safe work practices related to this talk.</span>
-            </div>
-          </div>
-
-          <div class="btns">
-            <button id="submitBtn" type="button">Submit & Email Dave</button>
-            <button class="secondary" id="copyBtn" type="button">Copy Email Text</button>
-          </div>
-
-          <div class="err" id="errBox"></div>
-
-          <div class="small">
-            Email goes to: <strong>Dave@Ogdenbrothers.com</strong><br />
-            Subject format: <em>Name – Talk Title – Date</em>
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-    <div class="footer">
-      OBC Steel Shop Training Portal
     </div>
   </div>
 
-<script>
-  // ===== Helpers =====
-  function ymd(d=new Date()){
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth()+1).padStart(2,'0');
-    const dd = String(d.getDate()).padStart(2,'0');
-    return `${yyyy}-${mm}-${dd}`;
-  }
+  <script>
+    const TO_EMAIL = "dave@ogdenbrothers.com";
+    const TALK_TXT_URL = "toolbox-talk.txt";
+    let toolboxText = "";
 
-  function showError(msg){
-    const box = document.getElementById('errBox');
-    box.textContent = msg;
-    box.style.display = 'block';
-  }
-  function clearError(){
-    const box = document.getElementById('errBox');
-    box.textContent = '';
-    box.style.display = 'none';
-  }
-
-  // ===== Cache-busting load for toolbox talk text =====
-  async function loadToolboxTalk(){
-    const status = document.getElementById('talkStatus');
-    const pre = document.getElementById('toolboxContent');
-
-    status.textContent = "Loading latest talk…";
-
-    // cache-busting + no-store = stubbornly fresh
-    const url = "toolbox-talk.txt?v=" + Date.now();
-
-    try{
-      const res = await fetch(url, { cache: "no-store" });
-      if(!res.ok) throw new Error(`HTTP ${res.status}`);
-      const txt = (await res.text()).trim();
-
-      pre.textContent = txt || "(toolbox-talk.txt is empty)";
-      status.textContent = "Loaded: " + new Date().toLocaleString();
-    }catch(e){
-      pre.textContent = "Toolbox talk failed to load. Please refresh the page. (" + e.message + ")";
-      status.textContent = "Load failed";
+    function todayISO(){
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
     }
-  }
 
-  // ===== Email builder =====
-  function buildEmail(){
-    const name = document.getElementById('employeeName').value.trim();
-    const title = document.getElementById('talkTitleInput').value.trim();
-    const date = ymd();
+    async function loadTalk(){
+      try{
+        const res = await fetch(`${TALK_TXT_URL}?v=${Date.now()}`, { cache: "no-store" });
+        if(!res.ok) throw new Error("Fetch failed");
+        toolboxText = await res.text();
+        document.getElementById("talk").textContent = toolboxText.trim() || "(Toolbox talk file is empty.)";
+      }catch(e){
+        document.getElementById("talk").textContent =
+          "ERROR: Could not load toolbox-talk.txt.\n\n" +
+          "Make sure toolbox-talk.txt is in the same folder as toolbox-text.html.";
+      }
+    }
 
-    if(!name) return { ok:false, msg:"Please enter your name." };
-    if(!title) return { ok:false, msg:"Please enter the toolbox talk title." };
+    function sendEmail(){
+      const name = document.getElementById("name").value.trim();
+      const ack = document.getElementById("ack").checked;
 
-    const c1 = document.getElementById('c1').checked;
-    const c2 = document.getElementById('c2').checked;
-    const c3 = document.getElementById('c3').checked;
-    if(!(c1 && c2 && c3)) return { ok:false, msg:"Please check all confirmation boxes." };
+      if(!name){
+        alert("Please enter your name.");
+        return;
+      }
+      if(!ack){
+        alert("Please check the acknowledgment box.");
+        return;
+      }
 
-    const subject = `${name} – ${title} – ${date}`;
+      const date = todayISO();
+      const subject = `OBC Safety Training - Weekly Toolbox Talk - ${name} - ${date}`;
 
-    const body =
-`OBC Steel Shop – Weekly Toolbox Talk Confirmation
-
-Employee: ${name}
-Toolbox Talk Title: ${title}
+      const body =
+`Employee Name: ${name}
 Date: ${date}
 
-Confirmations:
-- Read/understood toolbox talk: YES
-- Can ask supervisor questions: YES
-- Will follow safe work practices: YES
+I acknowledge that I have read and understood today’s Weekly Safety Toolbox Talk.
 
-(Submitted from the OBC Steel Shop Training Portal)`;
+------------------------------------------------------------
+Toolbox Talk (English + Español):
+------------------------------------------------------------
+${toolboxText || "(Unable to load toolbox talk text.)"}
+`;
 
-    return { ok:true, subject, body };
-  }
+      const mailto =
+        `mailto:${encodeURIComponent(TO_EMAIL)}` +
+        `?subject=${encodeURIComponent(subject)}` +
+        `&body=${encodeURIComponent(body)}`;
 
-  // ===== Actions =====
-  document.getElementById('submitBtn').addEventListener('click', () => {
-    clearError();
-    const email = buildEmail();
-    if(!email.ok){
-      showError(email.msg);
-      return;
+      window.location.href = mailto;
     }
 
-    const to = "Dave@Ogdenbrothers.com";
-    const mailto =
-      `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(email.subject)}&body=${encodeURIComponent(email.body)}`;
-
-    // Launch user's email client
-    window.location.href = mailto;
-  });
-
-  document.getElementById('copyBtn').addEventListener('click', async () => {
-    clearError();
-    const email = buildEmail();
-    if(!email.ok){
-      showError(email.msg);
-      return;
-    }
-
-    const combined = `TO: Dave@Ogdenbrothers.com\nSUBJECT: ${email.subject}\n\n${email.body}`;
-
-    try{
-      await navigator.clipboard.writeText(combined);
-      document.getElementById('talkStatus').textContent = "Copied email text to clipboard.";
-      setTimeout(() => loadToolboxTalk(), 1200);
-    }catch{
-      showError("Clipboard copy blocked by browser. Use Submit & Email Dave instead.");
-    }
-  });
-
-  // ===== Init =====
-  document.getElementById('todayPill').textContent = "Today: " + ymd();
-  loadToolboxTalk();
-
-  // Optional: auto-refresh the talk every 60 seconds (keeps page current if left open)
-  setInterval(loadToolboxTalk, 60000);
-</script>
-
+    document.getElementById("sendBtn").addEventListener("click", sendEmail);
+    loadTalk();
+  </script>
 </body>
 </html>
