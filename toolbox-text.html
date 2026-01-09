@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weekly Safety Toolbox Talk</title>
+  <title>OBC Steel Shop Training – Weekly Toolbox Talk</title>
+  <meta name="description" content="OBC Weekly Safety Toolbox Talk Acknowledgment" />
 
   <style>
     :root{
@@ -11,10 +12,12 @@
       --card:#ffffff;
       --ink:#111827;
       --muted:#6b7280;
+      --brand:#1f2937;
       --btn:#2563eb;
+      --btnHover:#1d4ed8;
       --border:#e5e7eb;
-      --radius:16px;
-      --shadow:0 12px 35px rgba(0,0,0,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.12);
+      --radius: 16px;
 
       --ok-bg:#dcfce7;
       --ok-border:#22c55e;
@@ -30,117 +33,147 @@
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      padding:16px;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 18px;
     }
 
-    .wrap{ width:min(980px, 100%); margin:0 auto; }
+    .wrap{
+      width: min(980px, 100%);
+      margin: 0 auto;
+    }
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    .titleBlock h1{
+      margin:0;
+      font-size: 22px;
+      line-height:1.2;
+      color: var(--brand);
+    }
+
+    .titleBlock p{
+      margin:6px 0 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .back{
+      text-decoration:none;
+      color: var(--brand);
+      border:1px solid var(--border);
+      background:#fff;
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:14px;
+      line-height:1;
+    }
 
     .banner{
       display:none;
       padding:12px 14px;
       border-radius:12px;
-      margin-bottom:14px;
+      margin: 0 0 12px 0;
+      font-weight:700;
       font-size:14px;
-      font-weight:650;
-      line-height:1.25;
     }
     .banner.ok{
-      background:var(--ok-bg);
-      border:1px solid var(--ok-border);
-      color:var(--ok-text);
+      background: var(--ok-bg);
+      border: 1px solid var(--ok-border);
+      color: var(--ok-text);
     }
     .banner.err{
-      background:var(--err-bg);
-      border:1px solid var(--err-border);
-      color:var(--err-text);
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:12px;
-    }
-
-    h1{ margin:0; font-size:22px; }
-
-    .back{
-      text-decoration:none;
-      color:var(--ink);
-      border:1px solid var(--border);
-      padding:8px 12px;
-      border-radius:999px;
-      background:#fff;
-      font-size:14px;
+      background: var(--err-bg);
+      border: 1px solid var(--err-border);
+      color: var(--err-text);
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
     }
 
-    .talk{
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:14px;
-      background:#fafafa;
-      white-space:pre-wrap;
-      overflow-wrap:anywhere;
-      line-height:1.35;
-      font-size:15px;
-      min-height:200px;
+    .label{
+      display:block;
+      margin: 14px 0 6px 0;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
     }
-
-    .form{
-      margin-top:14px;
-      display:grid;
-      gap:10px;
-    }
-
-    label{ font-size:14px; color:var(--muted); }
 
     input[type="text"]{
       width:100%;
-      padding:12px;
+      padding:12px 12px;
+      font-size:16px;
+      border:1px solid var(--border);
+      border-radius: 12px;
+      outline:none;
+      background:#fff;
+    }
+
+    .scrollBox{
       border:1px solid var(--border);
       border-radius:12px;
-      font-size:16px;
+      background:#fafafa;
+      padding:12px;
+      height: 320px;             /* scroll area */
+      overflow-y:auto;
+      white-space:pre-wrap;       /* keep formatting but wrap */
+      overflow-wrap:anywhere;
+      line-height:1.35;
+      font-size: 15px;
     }
 
     .row{
       display:flex;
-      gap:10px;
       align-items:flex-start;
+      gap:10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
     }
 
     .row input{
       margin-top:4px;
-      transform:scale(1.2);
+      transform: scale(1.2);
+    }
+
+    .row label{
+      margin:0;
+      font-size: 14px;
+      color: var(--ink);
     }
 
     .btn{
+      margin-top: 14px;
       width:100%;
-      padding:12px;
+      padding: 12px 14px;
       border:none;
-      border-radius:12px;
-      background:var(--btn);
+      border-radius: 12px;
+      background: var(--btn);
       color:#fff;
-      font-size:16px;
+      font-size: 16px;
+      font-weight: 700;
       cursor:pointer;
     }
+    .btn:hover{ background: var(--btnHover); }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; }
 
     .small{
-      margin-top:6px;
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.35;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
     }
   </style>
 </head>
@@ -149,46 +182,44 @@
   <div class="wrap">
 
     <div id="okMsg" class="banner ok">✔ Submitted</div>
-    <div id="errMsg" class="banner err">✖ Submission failed. Try again, or call Dave.</div>
+    <div id="errMsg" class="banner err">✖ Submission failed. Try again.</div>
 
-    <div class="topbar">
-      <h1>Weekly Safety Toolbox Talk</h1>
+    <div class="header">
+      <div class="titleBlock">
+        <h1>Weekly Safety Toolbox Talk</h1>
+        <p>Read the talk below, then enter your name and acknowledge completion.</p>
+      </div>
       <a class="back" href="/index.html">← Back to Portal</a>
     </div>
 
     <div class="card">
-      <div id="talk" class="talk">Loading toolbox talk…</div>
 
-      <!-- Netlify Forms (server-side, no user email required) -->
+      <!-- SCROLLING TOOLBOX TALK -->
+      <span class="label">Toolbox Talk (English + Español)</span>
+      <div id="talkBox" class="scrollBox">Loading toolbox talk…</div>
+
+      <!-- NETLIFY FORM (server-side like your modules) -->
       <form
-        name="weekly-toolbox-talk"
+        name="steelshop-toolbox-talk"
         method="POST"
         data-netlify="true"
         netlify-honeypot="bot-field"
         action="/"
         onsubmit="handleSubmit(event)"
-        class="form"
       >
-        <!-- required for Netlify form name -->
-        <input type="hidden" name="form-name" value="weekly-toolbox-talk" />
-
-        <!-- spam trap -->
+        <input type="hidden" name="form-name" value="steelshop-toolbox-talk" />
         <p style="display:none;">
           <label>Don’t fill this out: <input name="bot-field" /></label>
         </p>
 
-        <!-- captured fields -->
-        <div>
-          <label for="employee_name">Employee Name</label>
-          <input id="employee_name" name="employee_name" type="text" placeholder="Type your full name" required />
-        </div>
+        <!-- hidden metadata (helps you sort submissions) -->
+        <input type="hidden" id="module_name" name="module_name" value="Weekly Safety Toolbox Talk" />
+        <input type="hidden" id="submit_date" name="submit_date" />
+        <input type="hidden" id="page_path" name="page_path" />
+        <input type="hidden" id="toolbox_text" name="toolbox_text" />
 
-        <!-- optional fields if you want them in email subject/filters -->
-        <input type="hidden" id="talk_date" name="talk_date" />
-        <input type="hidden" id="talk_title" name="talk_title" value="Weekly Toolbox Talk" />
-
-        <!-- store the actual talk text inside the submission -->
-        <input type="hidden" id="talk_text" name="talk_text" />
+        <span class="label">Employee Name</span>
+        <input id="employee_name" name="employee_name" type="text" required placeholder="Type your full name" />
 
         <div class="row">
           <input id="ack" name="acknowledged" type="checkbox" value="Yes" required />
@@ -197,10 +228,10 @@
           </label>
         </div>
 
-        <button id="submitBtn" class="btn" type="submit">Submit Acknowledgment</button>
+        <button id="submitBtn" class="btn" type="submit">Submit</button>
 
         <div class="small">
-          This submits directly to the OBC portal system (no personal email required).
+          This submits directly through the training portal (no personal email needed).
         </div>
       </form>
     </div>
@@ -208,11 +239,12 @@
 
   <script>
     const TALK_FILE = "toolbox-talk.txt";
+    let talkText = "";
 
     function setBanner(ok, err){
       document.getElementById("okMsg").style.display = ok ? "block" : "none";
       document.getElementById("errMsg").style.display = err ? "block" : "none";
-      if(ok) window.scrollTo({ top: 0, behavior: "smooth" });
+      if(ok || err) window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function todayISO(){
@@ -226,28 +258,26 @@
     async function loadTalk(){
       try{
         const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
-        const txt = await res.text();
-
-        const cleaned = (txt || "").trim();
-        document.getElementById("talk").textContent = cleaned || "(Toolbox talk file is empty.)";
-
-        // put it into hidden field so Netlify emails you the actual content
-        document.getElementById("talk_text").value = cleaned;
-
-        // set date hidden field
-        document.getElementById("talk_date").value = todayISO();
+        if(!res.ok) throw new Error("fetch failed");
+        talkText = await res.text();
+        talkText = (talkText || "").trim();
+        document.getElementById("talkBox").textContent = talkText || "(Toolbox talk file is empty.)";
       }catch(e){
-        document.getElementById("talk").textContent =
-          "ERROR: toolbox-talk.txt not found.";
-        document.getElementById("talk_text").value = "";
-        document.getElementById("talk_date").value = todayISO();
+        talkText = "";
+        document.getElementById("talkBox").textContent =
+          "ERROR: Could not load toolbox-talk.txt\n\n" +
+          "Make sure toolbox-talk.txt is in the same folder as this page.";
       }
+
+      // Fill hidden fields
+      document.getElementById("submit_date").value = todayISO();
+      document.getElementById("page_path").value = location.pathname || "/toolbox.html";
+      document.getElementById("toolbox_text").value = talkText;
     }
 
-    // Netlify AJAX submit (recommended pattern)
-    function encodeFormData(form){
-      const formData = new FormData(form);
-      return new URLSearchParams(formData).toString();
+    function encodeForm(form){
+      const data = new FormData(form);
+      return new URLSearchParams(data).toString();
     }
 
     function handleSubmit(event){
@@ -256,23 +286,23 @@
       const form = event.target;
       const btn = document.getElementById("submitBtn");
       btn.disabled = true;
-
       setBanner(false, false);
 
+      // IMPORTANT: this must POST to "/" for Netlify to capture it
       fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodeFormData(form)
+        body: encodeForm(form)
       })
       .then(() => {
         setBanner(true, false);
         form.reset();
 
-        // reload talk fields after reset (so talk_text and talk_date are re-filled)
+        // reload the talk + hidden fields after reset
         loadTalk();
 
-        // re-enable after a moment
-        setTimeout(() => { btn.disabled = false; }, 800);
+        // re-enable quickly
+        setTimeout(() => { btn.disabled = false; }, 700);
       })
       .catch(() => {
         setBanner(false, true);
