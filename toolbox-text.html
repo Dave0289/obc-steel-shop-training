@@ -12,19 +12,17 @@
       --ink:#111827;
       --muted:#6b7280;
       --btn:#2563eb;
-      --btn2:#111827;
       --border:#e5e7eb;
       --radius:16px;
       --shadow:0 12px 35px rgba(0,0,0,.12);
 
-      /* banners */
       --ok-bg:#dcfce7;
       --ok-border:#22c55e;
       --ok-text:#166534;
 
-      --warn-bg:#fffbeb;
-      --warn-border:#f59e0b;
-      --warn-text:#92400e;
+      --err-bg:#fee2e2;
+      --err-border:#ef4444;
+      --err-text:#991b1b;
     }
 
     *{ box-sizing:border-box; }
@@ -37,10 +35,7 @@
       padding:16px;
     }
 
-    .wrap{
-      width:min(980px, 100%);
-      margin:0 auto;
-    }
+    .wrap{ width:min(980px, 100%); margin:0 auto; }
 
     .banner{
       display:none;
@@ -51,17 +46,15 @@
       font-weight:650;
       line-height:1.25;
     }
-
     .banner.ok{
       background:var(--ok-bg);
       border:1px solid var(--ok-border);
       color:var(--ok-text);
     }
-
-    .banner.warn{
-      background:var(--warn-bg);
-      border:1px solid var(--warn-border);
-      color:var(--warn-text);
+    .banner.err{
+      background:var(--err-bg);
+      border:1px solid var(--err-border);
+      color:var(--err-text);
     }
 
     .topbar{
@@ -73,10 +66,7 @@
       margin-bottom:12px;
     }
 
-    h1{
-      margin:0;
-      font-size:22px;
-    }
+    h1{ margin:0; font-size:22px; }
 
     .back{
       text-decoration:none;
@@ -114,10 +104,7 @@
       gap:10px;
     }
 
-    label{
-      font-size:14px;
-      color:var(--muted);
-    }
+    label{ font-size:14px; color:var(--muted); }
 
     input[type="text"]{
       width:100%;
@@ -149,40 +136,10 @@
       cursor:pointer;
     }
 
-    .btn.secondary{
-      background:var(--btn2);
-    }
-
-    .manual{
-      display:none;
-      margin-top:12px;
-      padding:12px;
-      border:1px dashed var(--border);
-      border-radius:12px;
-      background:#fff;
-    }
-
-    .manual p{
-      margin:0 0 8px 0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
-    }
-
-    textarea{
-      width:100%;
-      min-height:160px;
-      padding:10px;
-      border:1px solid var(--border);
-      border-radius:10px;
-      font-size:13px;
-      resize:vertical;
-    }
-
     .small{
-      font-size:12px;
+      margin-top:6px;
       color:var(--muted);
-      margin-top:8px;
+      font-size:12px;
       line-height:1.35;
     }
   </style>
@@ -191,13 +148,8 @@
 <body>
   <div class="wrap">
 
-    <div id="okMsg" class="banner ok">
-      ✔ Email draft opened. <b>Press SEND</b> to complete your acknowledgment.
-    </div>
-
-    <div id="warnMsg" class="banner warn">
-      ⚠ Your device didn’t open an email draft. Use the manual copy method below.
-    </div>
+    <div id="okMsg" class="banner ok">✔ Submitted</div>
+    <div id="errMsg" class="banner err">✖ Submission failed. Try again, or call Dave.</div>
 
     <div class="topbar">
       <h1>Weekly Safety Toolbox Talk</h1>
@@ -207,41 +159,61 @@
     <div class="card">
       <div id="talk" class="talk">Loading toolbox talk…</div>
 
-      <div class="form">
+      <!-- Netlify Forms (server-side, no user email required) -->
+      <form
+        name="weekly-toolbox-talk"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        action="/"
+        onsubmit="handleSubmit(event)"
+        class="form"
+      >
+        <!-- required for Netlify form name -->
+        <input type="hidden" name="form-name" value="weekly-toolbox-talk" />
+
+        <!-- spam trap -->
+        <p style="display:none;">
+          <label>Don’t fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <!-- captured fields -->
         <div>
-          <label for="name">Employee Name</label>
-          <input id="name" type="text" placeholder="Type your full name" />
+          <label for="employee_name">Employee Name</label>
+          <input id="employee_name" name="employee_name" type="text" placeholder="Type your full name" required />
         </div>
 
+        <!-- optional fields if you want them in email subject/filters -->
+        <input type="hidden" id="talk_date" name="talk_date" />
+        <input type="hidden" id="talk_title" name="talk_title" value="Weekly Toolbox Talk" />
+
+        <!-- store the actual talk text inside the submission -->
+        <input type="hidden" id="talk_text" name="talk_text" />
+
         <div class="row">
-          <input id="ack" type="checkbox" />
+          <input id="ack" name="acknowledged" type="checkbox" value="Yes" required />
           <label for="ack">
             I acknowledge that I have read and understood today’s Weekly Safety Toolbox Talk.
           </label>
         </div>
 
-        <button class="btn" type="button" onclick="attemptEmail()">Send Acknowledgment</button>
+        <button id="submitBtn" class="btn" type="submit">Submit Acknowledgment</button>
 
-        <button class="btn secondary" type="button" onclick="showManual()">
-          Having trouble? Open manual copy method
-        </button>
-
-        <div id="manualBox" class="manual">
-          <p><b>Manual method:</b> Open your email app, create a new email to <b>dave@ogdenbrothers.com</b>,
-            then paste the text below. Subject is shown at the top of the text.</p>
-          <textarea id="manualText" readonly></textarea>
-          <button class="btn" type="button" onclick="copyManual()">Copy Email Text</button>
-          <div class="small">If “Copy” doesn’t work on your device, press and hold to select all, then copy.</div>
+        <div class="small">
+          This submits directly to the OBC portal system (no personal email required).
         </div>
-      </div>
+      </form>
     </div>
-
   </div>
 
   <script>
-    const EMAIL_TO = "dave@ogdenbrothers.com";
     const TALK_FILE = "toolbox-talk.txt";
-    let talkText = "";
+
+    function setBanner(ok, err){
+      document.getElementById("okMsg").style.display = ok ? "block" : "none";
+      document.getElementById("errMsg").style.display = err ? "block" : "none";
+      if(ok) window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     function todayISO(){
       const d = new Date();
@@ -254,100 +226,58 @@
     async function loadTalk(){
       try{
         const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
-        talkText = await res.text();
-        document.getElementById("talk").textContent =
-          talkText.trim() || "(Toolbox talk file is empty)";
-      }catch{
-        talkText = "";
+        const txt = await res.text();
+
+        const cleaned = (txt || "").trim();
+        document.getElementById("talk").textContent = cleaned || "(Toolbox talk file is empty.)";
+
+        // put it into hidden field so Netlify emails you the actual content
+        document.getElementById("talk_text").value = cleaned;
+
+        // set date hidden field
+        document.getElementById("talk_date").value = todayISO();
+      }catch(e){
         document.getElementById("talk").textContent =
           "ERROR: toolbox-talk.txt not found.";
+        document.getElementById("talk_text").value = "";
+        document.getElementById("talk_date").value = todayISO();
       }
     }
 
-    function buildEmail(name){
-      const date = todayISO();
-      const subject = `OBC Safety Training - Weekly Toolbox Talk - ${name} - ${date}`;
-      const body =
-`Employee Name: ${name}
-Date: ${date}
-
-I acknowledge that I have read and understood today’s Weekly Safety Toolbox Talk.
-
-------------------------------------
-${talkText || "(Toolbox talk text not loaded.)"}
-`;
-      return { subject, body };
+    // Netlify AJAX submit (recommended pattern)
+    function encodeFormData(form){
+      const formData = new FormData(form);
+      return new URLSearchParams(formData).toString();
     }
 
-    function setBanners(ok, warn){
-      document.getElementById("okMsg").style.display = ok ? "block" : "none";
-      document.getElementById("warnMsg").style.display = warn ? "block" : "none";
-    }
+    function handleSubmit(event){
+      event.preventDefault();
 
-    function showManual(){
-      document.getElementById("manualBox").style.display = "block";
-    }
+      const form = event.target;
+      const btn = document.getElementById("submitBtn");
+      btn.disabled = true;
 
-    function fillManualText(name){
-      const { subject, body } = buildEmail(name);
-      document.getElementById("manualText").value =
-`SUBJECT: ${subject}
+      setBanner(false, false);
 
-TO: ${EMAIL_TO}
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeFormData(form)
+      })
+      .then(() => {
+        setBanner(true, false);
+        form.reset();
 
-${body}`;
-    }
+        // reload talk fields after reset (so talk_text and talk_date are re-filled)
+        loadTalk();
 
-    async function copyManual(){
-      const ta = document.getElementById("manualText");
-      ta.focus();
-      ta.select();
-      try{
-        await navigator.clipboard.writeText(ta.value);
-        alert("Copied. Now paste into a new email and press Send.");
-      }catch{
-        document.execCommand("copy");
-        alert("Copied (or selected). Now paste into a new email and press Send.");
-      }
-    }
-
-    function attemptEmail(){
-      const name = document.getElementById("name").value.trim();
-      const ack  = document.getElementById("ack").checked;
-
-      if(!name){
-        alert("Please enter your name.");
-        return;
-      }
-      if(!ack){
-        alert("Please check the acknowledgment box.");
-        return;
-      }
-
-      const { subject, body } = buildEmail(name);
-
-      // Always prepare manual fallback text
-      fillManualText(name);
-
-      // Try mailto
-      const mailto =
-        `mailto:${encodeURIComponent(EMAIL_TO)}` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
-
-      // We can't truly verify sending, but we can guide properly.
-      // Show "draft opened" message immediately.
-      setBanners(true, false);
-
-      // Some environments block mailto; if it doesn't open, user can use manual box.
-      // We'll still show the manual option right away.
-      showManual();
-
-      // Trigger email client
-      window.location.href = mailto;
-
-      // If they come back and it didn't open, they still have the manual copy path.
-      // (No reliable browser signal exists to detect failure.)
+        // re-enable after a moment
+        setTimeout(() => { btn.disabled = false; }, 800);
+      })
+      .catch(() => {
+        setBanner(false, true);
+        btn.disabled = false;
+      });
     }
 
     loadTalk();
