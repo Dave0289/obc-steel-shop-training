@@ -36,10 +36,7 @@
     }
     .wrap{width:min(980px, 100%);}
     .top{
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:14px;
+      display:flex; justify-content:space-between; gap:16px; margin-bottom:14px;
     }
     .brand h1{margin:0; font-size:22px;}
     .brand p{margin:6px 0 0; color:var(--muted); font-size:14px;}
@@ -50,6 +47,7 @@
       border-radius:999px;
       font-size:13px;
       white-space:nowrap;
+      align-self:flex-start;
     }
     .grid{
       display:grid;
@@ -73,6 +71,7 @@
       display:flex;
       justify-content:space-between;
       align-items:center;
+      gap:12px;
     }
     .body{padding:16px;}
     .talk{
@@ -81,7 +80,7 @@
       border-radius:14px;
       padding:14px;
       min-height:260px;
-      max-height:520px;
+      max-height:70vh; /* better for long talks */
       overflow:auto;
       white-space:pre-wrap;
       line-height:1.35;
@@ -100,6 +99,11 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.22);
       color:var(--ink);
+      outline:none;
+    }
+    input[type="text"]:focus{
+      border-color: rgba(91,192,190,.65);
+      box-shadow: 0 0 0 3px rgba(91,192,190,.12);
     }
     .check{
       display:flex;
@@ -109,6 +113,7 @@
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.18);
       margin-top:12px;
+      align-items:flex-start;
     }
     .btn{
       margin-top:14px;
@@ -117,13 +122,10 @@
       border:0;
       border-radius:14px;
       background: linear-gradient(135deg, rgba(91,192,190,.95), rgba(49,164,161,.85));
-      font-weight:700;
+      font-weight:800;
       cursor:pointer;
     }
-    .btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-    }
+    .btn:disabled{opacity:.45; cursor:not-allowed;}
     .msg{
       margin-top:10px;
       padding:10px 12px;
@@ -132,13 +134,24 @@
       display:none;
       background: rgba(91,192,190,.10);
       border:1px solid rgba(91,192,190,.25);
+      color: var(--ink);
     }
+    .err{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:13px;
+      display:none;
+      background: rgba(255,107,107,.10);
+      border:1px solid rgba(255,107,107,.25);
+      color: var(--ink);
+    }
+    .meta{color:var(--muted); font-size:12px; margin-top:10px;}
   </style>
 </head>
 
 <body>
 <div class="wrap">
-
   <div class="top">
     <div class="brand">
       <h1>Weekly Toolbox Talk</h1>
@@ -157,6 +170,7 @@
       </div>
       <div class="body">
         <div class="talk" id="talkBox">Loading toolbox talk…</div>
+        <div class="meta">Source: <code>toolbox-talk.txt</code> (auto refreshed each load)</div>
       </div>
     </section>
 
@@ -164,28 +178,50 @@
     <section class="card">
       <div class="card-h">
         <strong>Acknowledgement</strong>
+        <span style="color:var(--muted); font-size:13px;">Required</span>
       </div>
       <div class="body">
-        <form id="ackForm">
-          <label>Employee Name</label>
-          <input id="empName" type="text" placeholder="First Last" required>
+
+        <!-- Hidden iframe so form can submit without leaving the page -->
+        <iframe name="submitFrame" id="submitFrame" style="display:none;"></iframe>
+
+        <!-- FORM (emails automatically, no mail client) -->
+        <form id="ackForm"
+              action="https://formsubmit.co/Dave@Ogdenbrothers.com"
+              method="POST"
+              target="submitFrame">
+
+          <label for="empName">Employee Name</label>
+          <input id="empName" name="Employee Name" type="text" placeholder="First Last" autocomplete="name" required>
 
           <div class="check">
             <input id="confirm" type="checkbox">
             <div>I confirm I have read and understand this toolbox talk.</div>
           </div>
 
-          <button class="btn" id="sendBtn" disabled>
-            Confirm & Email Acknowledgement
+          <!-- FormSubmit settings -->
+          <input type="hidden" name="_subject" id="subjectField" value="OBC Steel Shop Training – Toolbox Talk Acknowledgement" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+
+          <!-- Payload fields -->
+          <input type="hidden" name="Toolbox Talk Title" id="titleField" />
+          <input type="hidden" name="Toolbox Talk Updated" id="updatedField" />
+          <input type="hidden" name="Acknowledged At" id="timeField" />
+          <textarea name="Toolbox Talk Text" id="textField" style="display:none;"></textarea>
+
+          <button class="btn" id="sendBtn" type="submit" disabled>
+            Confirm & Submit
           </button>
 
-          <div class="msg" id="msg">
-            Your email client will open. Press Send to complete.
-          </div>
+          <div class="msg" id="okMsg">Submitted ✅ Thanks — your acknowledgement was sent.</div>
+          <div class="err" id="errMsg">Could not submit. Please try again or tell your supervisor.</div>
 
-          <input type="hidden" id="topicHidden">
-          <input type="hidden" id="updatedHidden">
+          <div class="meta">
+            This submits like your other modules (no email app required).
+          </div>
         </form>
+
       </div>
     </section>
 
@@ -193,87 +229,122 @@
 </div>
 
 <script>
-const EMAIL_TO = "Dave@Ogdenbrothers.com";
-const TALK_FILE = "toolbox-talk.txt";
+  const TALK_FILE = "toolbox-talk.txt";
 
-const el = {
-  badge: document.getElementById("badge"),
-  talkBox: document.getElementById("talkBox"),
-  talkTitle: document.getElementById("talkTitle"),
-  talkUpdated: document.getElementById("talkUpdated"),
-  empName: document.getElementById("empName"),
-  confirm: document.getElementById("confirm"),
-  sendBtn: document.getElementById("sendBtn"),
-  msg: document.getElementById("msg"),
-  topicHidden: document.getElementById("topicHidden"),
-  updatedHidden: document.getElementById("updatedHidden"),
-  form: document.getElementById("ackForm")
-};
+  const el = {
+    badge: document.getElementById("badge"),
+    talkBox: document.getElementById("talkBox"),
+    talkTitle: document.getElementById("talkTitle"),
+    talkUpdated: document.getElementById("talkUpdated"),
+    empName: document.getElementById("empName"),
+    confirm: document.getElementById("confirm"),
+    sendBtn: document.getElementById("sendBtn"),
+    okMsg: document.getElementById("okMsg"),
+    errMsg: document.getElementById("errMsg"),
+    form: document.getElementById("ackForm"),
+    frame: document.getElementById("submitFrame"),
+    subjectField: document.getElementById("subjectField"),
+    titleField: document.getElementById("titleField"),
+    updatedField: document.getElementById("updatedField"),
+    timeField: document.getElementById("timeField"),
+    textField: document.getElementById("textField")
+  };
 
-function parseTalk(text){
-  const lines = text.split(/\r?\n/);
-  let title = "Toolbox Talk";
-  let updated = "";
-  let i = 0;
-
-  if(lines[i]?.startsWith("TITLE:")){
-    title = lines[i].slice(6).trim();
-    i++;
+  function nowLocalString(){
+    const d = new Date();
+    return d.toLocaleString([], { year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", minute:"2-digit" });
   }
-  if(lines[i]?.startsWith("UPDATED:")){
-    updated = lines[i].slice(8).trim();
-    i++;
+
+  function parseTalk(text){
+    const lines = text.split(/\r?\n/);
+    let title = "Toolbox Talk";
+    let updated = "";
+    let i = 0;
+
+    if (lines[i] && lines[i].toUpperCase().startsWith("TITLE:")){
+      title = lines[i].slice(6).trim() || title;
+      i++;
+    }
+    if (lines[i] && lines[i].toUpperCase().startsWith("UPDATED:")){
+      updated = lines[i].slice(8).trim();
+      i++;
+    }
+    if (lines[i] === "") i++;
+
+    const body = lines.slice(i).join("\n").trim();
+    return { title, updated, body };
   }
-  if(lines[i] === "") i++;
 
-  return { title, updated, body: lines.slice(i).join("\n") };
-}
+  async function loadTalk(){
+    try{
+      const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
+      if(!res.ok) throw new Error("Fetch failed");
+      const txt = await res.text();
+      const talk = parseTalk(txt);
 
-async function loadTalk(){
-  const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
-  const txt = await res.text();
-  const talk = parseTalk(txt);
+      el.talkTitle.textContent = talk.title;
+      el.talkUpdated.textContent = talk.updated ? `Updated: ${talk.updated}` : "";
+      el.talkBox.textContent = talk.body || "(No toolbox talk text found yet.)";
+      el.badge.textContent = "Current";
 
-  el.talkTitle.textContent = talk.title;
-  el.talkUpdated.textContent = talk.updated ? `Updated: ${talk.updated}` : "";
-  el.talkBox.textContent = talk.body;
-  el.topicHidden.value = talk.title;
-  el.updatedHidden.value = talk.updated;
-  el.badge.textContent = "Current";
-}
+      // preload hidden fields so submission includes the talk
+      el.titleField.value = talk.title;
+      el.updatedField.value = talk.updated || "";
+      el.textField.value = talk.body || "";
 
-function updateBtn(){
-  el.sendBtn.disabled = !(el.empName.value.trim() && el.confirm.checked);
-}
-el.empName.oninput = updateBtn;
-el.confirm.onchange = updateBtn;
+    }catch(e){
+      el.badge.textContent = "Error";
+      el.talkBox.textContent = "ERROR: Could not load toolbox-talk.txt. Make sure it is in the same folder as this page.";
+      el.errMsg.style.display = "block";
+    }
+  }
 
-el.form.onsubmit = e => {
-  e.preventDefault();
+  function updateBtn(){
+    const nameOk = el.empName.value.trim().length >= 2;
+    const checked = el.confirm.checked;
+    el.sendBtn.disabled = !(nameOk && checked);
+  }
 
-  const name = el.empName.value.trim();
-  const topic = el.topicHidden.value;
-  const date = el.updatedHidden.value || new Date().toISOString().slice(0,10);
+  el.empName.addEventListener("input", updateBtn);
+  el.confirm.addEventListener("change", updateBtn);
 
-  const subject =
-    `OBC Steel Shop Training – Toolbox Talk – ${topic} – ${name} – ${date}`;
+  // Submit -> fill subject + timestamp, then post (no leaving page)
+  let submitted = false;
 
-  const body =
-`Toolbox Talk Acknowledgement
+  el.form.addEventListener("submit", (e) => {
+    const name = el.empName.value.trim();
+    if (!name || !el.confirm.checked){
+      e.preventDefault();
+      return;
+    }
 
-Employee: ${name}
-Topic: ${topic}
-Date: ${date}
+    const title = el.titleField.value || "Toolbox Talk";
+    const updated = el.updatedField.value || new Date().toISOString().slice(0,10);
+    const ts = nowLocalString();
 
-I confirm I have read and understand this toolbox talk.`;
+    // Subject line (matches your desired format)
+    el.subjectField.value = `OBC Steel Shop Training – Toolbox Talk – ${title} – ${name} – ${updated}`;
+    el.timeField.value = ts;
 
-  el.msg.style.display = "block";
+    // reset messages
+    el.okMsg.style.display = "none";
+    el.errMsg.style.display = "none";
+    submitted = true;
+  });
 
-  window.location.href =
-    `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-};
+  // When iframe loads after submission, show success message
+  el.frame.addEventListener("load", () => {
+    if (!submitted) return;
+    el.okMsg.style.display = "block";
+    submitted = false;
 
-loadTalk();
+    // Optional: clear fields after submit
+    // el.empName.value = "";
+    // el.confirm.checked = false;
+    // updateBtn();
+  });
+
+  loadTalk();
 </script>
 </body>
 </html>
