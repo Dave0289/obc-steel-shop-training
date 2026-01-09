@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OBC Steel Shop Training – Aerial & Scissor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root{
+      --bg:#f4f6f8;
+      --card:#ffffff;
+      --ink:#111827;
+      --muted:#6b7280;
+      --brand:#1f2937;
+      --btn:#2563eb;
+      --btn2:#1d4ed8;
+      --ring:#93c5fd;
+      --line:#e5e7eb;
+      --okbg:#ecfdf3;
+      --okbd:#bbf7d0;
+      --oktx:#14532d;
+      --errbg:#fef2f2;
+      --errbd:#fecaca;
+      --errtx:#991b1b;
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.35;
+    }
+
+    header{
+      background:var(--brand);
+      color:#fff;
+      padding:20px 14px;
+      text-align:center;
+    }
+
+    header h1{
+      margin:0 0 6px 0;
+      font-size:22px;
+      letter-spacing:.2px;
+    }
+
+    header p{
+      margin:0;
+      opacity:.92;
+      font-size:14px;
+    }
+
+    .container{
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+
+    h2{
+      margin: 0 0 12px 0;
+      font-size:18px;
+    }
+
+    .helper{
+      color:var(--muted);
+      font-size:14px;
+      margin:0 0 12px 0;
+    }
+
+    .subline{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:600;
+    }
+
+    /* banners */
+    .banner{
+      display:none;
+      padding:12px;
+      border-radius:12px;
+      margin: 0 0 12px 0;
+      font-weight:800;
+    }
+    .banner small{
+      display:block;
+      font-weight:700;
+      margin-top:4px;
+    }
+    .banner.ok{
+      background:var(--okbg);
+      border:1px solid var(--okbd);
+      color:var(--oktx);
+    }
+    .banner.err{
+      background:var(--errbg);
+      border:1px solid var(--errbd);
+      color:var(--errtx);
+    }
+
+    /* Responsive YouTube embed */
+    .video-wrap{
+      position:relative;
+      width:100%;
+      padding-top:56.25%; /* 16:9 */
+      border-radius:12px;
+      overflow:hidden;
+      background:#000;
+    }
+    .video-wrap iframe{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+    }
+
+    label{
+      display:block;
+      font-weight:800;
+      margin:14px 0 6px 0;
+      font-size:15px;
+    }
+
+    input[type="text"]{
+      width:100%;
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      font-size:16px; /* prevents iPhone zoom */
+      outline:none;
+      background:#fff;
+    }
+
+    input[type="text"]:focus{
+      border-color: var(--ring);
+      box-shadow: 0 0 0 3px rgba(147,197,253,.4);
+    }
+
+    hr{
+      border:none;
+      border-top:1px solid var(--line);
+      margin:16px 0;
+    }
+
+    .question{
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      margin:12px 0;
+      background:#fafafa;
+    }
+
+    .q-en{
+      margin:0 0 6px 0;
+      font-weight:800;
+      font-size:15px;
+    }
+
+    .q-es{
+      margin:0 0 10px 0;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    /* big tappable answers */
+    .answers{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+
+    .choice{
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+      min-height:48px;
+      touch-action: manipulation;
+    }
+
+    .choice input{
+      transform: scale(1.2);
+      margin:0;
+    }
+
+    .ack{
+      margin-top:14px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+    }
+
+    .ack label{
+      margin:0;
+      font-weight:700;
+      font-size:14px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      cursor:pointer;
+    }
+
+    .ack input{
+      transform: scale(1.2);
+      margin-top:2px;
+    }
+
+    .ack .es{
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+    }
+
+    /* Sticky submit bar */
+    .submitbar{
+      position: sticky;
+      bottom: 0;
+      margin-top:16px;
+      padding-top:12px;
+      background: linear-gradient(to top, rgba(244,246,248,1) 40%, rgba(244,246,248,0));
+    }
+
+    button{
+      width:100%;
+      background:var(--btn);
+      color:white;
+      border:none;
+      padding:14px 18px;
+      font-size:16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    button:hover{ background:var(--btn2); }
+
+    button:disabled{
+      opacity:.7;
+      cursor:not-allowed;
+    }
+
+    footer{
+      text-align:center;
+      font-size:13px;
+      color:#6b7280;
+      padding:18px 12px 26px;
+    }
+
+    @media (min-width: 700px){
+      header h1{ font-size:26px; }
+      header p{ font-size:15px; }
+      .card{ padding:20px; }
+      h2{ font-size:20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>OBC Steel Shop Training</h1>
+  <p>Aerial &amp; Scissor Lift Safety &amp; Operation</p>
+</header>
+
+<div class="container">
+  <div class="card">
+
+    <!-- Success/Error banners (no redirect) -->
+    <div id="okBanner" class="banner ok" role="status" aria-live="polite">
+      ✅ Training confirmation sent.
+      <small>✅ Confirmación enviada. You may close this page now / Ya puede cerrar esta página.</small>
+    </div>
+
+    <div id="errBanner" class="banner err" role="status" aria-live="polite">
+      ❌ Something went wrong sending your confirmation.
+      <small>❌ Ocurrió un error al enviar. Please try again / Intente de nuevo.</small>
+    </div>
+
+    <h2>Training Video</h2>
+    <p class="helper">
+      Watch the full video, then complete the confirmation below.
+      <span class="subline">Mire el video completo y luego complete la confirmación.</span>
+    </p>
+
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/QW1msg8z5IQ"
+        title="Aerial & Scissor Lift Training"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+
+    <h2 style="margin-top:18px;">Employee Confirmation (Yes / No)</h2>
+    <p class="helper">
+      Answer all questions. Tap the boxes — sized for phones.
+      <span class="subline">Responda todas las preguntas. Toque las casillas — diseñadas para celulares.</span>
+    </p>
+
+    <!-- NOTE: We will submit via fetch() to prevent FormSubmit redirect -->
+    <form id="trainingForm" method="POST">
+      <!-- FormSubmit destination -->
+      <input type="hidden" name="_subject" value="OBC Aerial & Scissor Lift Training Completion">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+
+      <!-- Fixed training identifier (no domain/URL) -->
+      <input type="hidden" name="Training" value="OBC Aerial & Scissor Lift Safety Training">
+
+      <label for="empname">Employee Name <span class="subline" style="display:inline;">/ Nombre del empleado</span></label>
+      <input id="empname" type="text" name="Employee Name" required placeholder="First and last name / Nombre y apellido" />
+
+      <hr>
+
+      <div class="question">
+        <p class="q-en">1. I must complete a pre-use inspection of the lift before operating it.</p>
+        <p class="q-es">Debo completar una inspección previa al uso del elevador antes de operarlo.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q1" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q1" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">2. It is acceptable to operate a lift if a safety decal or warning label is missing or unreadable.</p>
+        <p class="q-es">Es aceptable operar un elevador si una etiqueta de seguridad o advertencia falta o no se puede leer.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q2" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q2" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">3. I must verify the ground or working surface can support the lift’s weight before raising or driving it.</p>
+        <p class="q-es">Debo verificar que el suelo o superficie de trabajo pueda soportar el peso del elevador antes de levantarlo o moverlo.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q3" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q3" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">4. I should keep both feet on the platform floor and not stand on guardrails, midrails, or boxes.</p>
+        <p class="q-es">Debo mantener ambos pies en el piso de la plataforma y no pararme sobre barandales, rieles intermedios o cajas.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q4" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q4" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">5. If fall protection is required, it must be attached to the manufacturer-approved anchor point.</p>
+        <p class="q-es">Si se requiere protección contra caídas, debe conectarse al punto de anclaje aprobado por el fabricante.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q5" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q5" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">6. I should keep my body and tools inside the guardrails while the platform is elevated.</p>
+        <p class="q-es">Debo mantener mi cuerpo y herramientas dentro de los barandales mientras la plataforma esté elevada.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q6" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q6" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">7. It is safe to exceed the platform’s rated capacity if the lift appears stable.</p>
+        <p class="q-es">Es seguro exceder la capacidad nominal de la plataforma si el elevador parece estable.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q7" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q7" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">8. I must check for overhead hazards such as power lines, beams, or door headers before raising the platform.</p>
+        <p class="q-es">Debo verificar peligros elevados como líneas eléctricas, vigas o marcos de puertas antes de levantar la plataforma.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q8" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q8" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">9. The entry gate or chain must be closed while operating the lift.</p>
+        <p class="q-es">La puerta o cadena de entrada debe permanecer cerrada mientras se opera el elevador.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q9" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q9" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p class="q-en">10. If the lift is not operating correctly, it should be removed from service and reported.</p>
+        <p class="q-es">Si el elevador no funciona correctamente, debe retirarse de servicio y reportarse.</p>
+        <div class="answers">
+          <label class="choice"><input type="radio" name="Q10" value="Yes" required> Yes / Sí</label>
+          <label class="choice"><input type="radio" name="Q10" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="ack">
+        <label>
+          <input type="checkbox" name="Acknowledgment" value="Checked" required>
+          I confirm that I watched the training video in full, understand the material presented,
+          and agree to follow all OBC safety policies and OSHA requirements.
+          <span class="es">Confirmo que vi el video completo, entiendo el material presentado y acepto seguir todas las políticas de seguridad de OBC y los requisitos de OSHA.</span>
+        </label>
+      </div>
+
+      <div class="submitbar">
+        <button id="submitBtn" type="submit">Submit Confirmation / Enviar</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<footer>
+  © OBC Steel Shop Training – Internal Use Only
+</footer>
+
+<script>
+  const DESTINATION = "https://formsubmit.co/ajax/Dave@OgdenBrothers.com"; // ajax endpoint prevents redirect
+  const form = document.getElementById("trainingForm");
+  const btn  = document.getElementById("submitBtn");
+  const ok   = document.getElementById("okBanner");
+  const err  = document.getElementById("errBanner");
+
+  function show(el){
+    el.style.display = "block";
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    ok.style.display = "none";
+    err.style.display = "none";
+
+    btn.disabled = true;
+    btn.textContent = "Sending… / Enviando…";
+
+    try{
+      const data = new FormData(form);
+
+      const res = await fetch(DESTINATION, {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      });
+
+      if(!res.ok) throw new Error("Bad response");
+
+      show(ok);
+      form.reset();
+
+    }catch(ex){
+      show(err);
+
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Submit Confirmation / Enviar";
+    }
+  });
+</script>
+
+</body>
+</html>
