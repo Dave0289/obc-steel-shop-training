@@ -1,38 +1,41 @@
-TITLE: Hot Work Safety (Welding, Cutting, Grinding)
-UPDATED: 2026-01-09
+OBC Steel Shop – Weekly Toolbox Talk
+DATE: 01-09-2026
+TOPIC: Housekeeping & Slip / Trip Hazards
 
-HOT WORK TOOLBOX TALK – ENGLISH
+ENGLISH
+Good housekeeping is a critical part of maintaining a safe steel shop. Slips, trips, and falls are among the most common causes of injuries in fabrication environments, and they are almost always preventable.
 
-Hot work includes welding, torch cutting, grinding, gouging, and any operation that produces sparks, heat, or open flame. These tasks are a leading cause of shop and jobsite fires and serious injuries when controls are ignored.
+Key points to remember:
+• Keep walkways, aisles, and work areas clear at all times.
+• Remove scrap, banding, welding rod stubs, and cutoffs promptly.
+• Clean up oil, grease, water, or coolant spills immediately.
+• Do not leave hoses, cords, or leads stretched across walk paths.
+• Store tools and materials in designated locations when not in use.
+• Watch footing when transitioning between shop floor, yard, and uneven surfaces.
 
-Key Safety Points:
-• Always remove or protect combustible materials within 35 feet of hot work.
-• Use welding screens, fire blankets, or shields to contain sparks and slag.
-• Never perform hot work near flammable liquids, vapors, or gases.
-• Ensure fire extinguishers are present, charged, and immediately accessible.
-• Assign a fire watch when required and maintain it for at least 30 minutes after hot work stops.
-• Verify that floors, walls, and hidden spaces are free of combustible buildup.
-• Wear proper PPE: welding hood, safety glasses, gloves, FR clothing, and hearing protection.
-• Never bypass safety devices or remove guards to “get the job done faster.”
+Everyone in the shop is responsible for housekeeping — not just the last person who worked in an area. A clean shop is a safer shop.
+
+If you see a hazard that you cannot correct immediately, notify your supervisor so it can be addressed.
 
 Remember:
-Hot work permits and fire watches exist because fires often start AFTER the work is done. If something doesn’t feel right, stop and ask. Production is never more important than safety.
+If you don’t have time to clean it up, you don’t have time to get hurt by it.
 
 ------------------------------------------------------------
 
-CHARLA DE SEGURIDAD – TRABAJOS EN CALIENTE (ESPAÑOL)
+ESPAÑOL
+Mantener el área limpia y ordenada es una parte crítica de la seguridad en el taller de acero. Los resbalones, tropiezos y caídas son de las causas más comunes de lesiones en fabricación, y casi siempre se pueden prevenir.
 
-Los trabajos en caliente incluyen soldadura, corte con soplete, esmerilado y cualquier actividad que produzca chispas, calor o llama abierta. Estas tareas son una de las principales causas de incendios y lesiones graves cuando no se siguen los controles de seguridad.
+Puntos clave para recordar:
+• Mantenga los pasillos, áreas de paso y zonas de trabajo despejados en todo momento.
+• Retire la chatarra, flejes/bandas, puntas de varilla, y recortes lo más pronto posible.
+• Limpie de inmediato cualquier derrame de aceite, grasa, agua o refrigerante.
+• No deje mangueras, cables o extensiones atravesando las áreas de paso.
+• Guarde herramientas y materiales en sus lugares designados cuando no se estén usando.
+• Tenga cuidado al caminar cuando cambie del piso del taller al patio o a superficies irregulares.
 
-Puntos Clave de Seguridad:
-• Retire o proteja todos los materiales combustibles dentro de un radio de 35 pies.
-• Use pantallas de soldadura, mantas ignífugas o protecciones para contener chispas y escoria.
-• Nunca realice trabajos en caliente cerca de líquidos, vapores o gases inflamables.
-• Asegúrese de que los extintores estén presentes, cargados y accesibles.
-• Asigne un vigilante contra incendios cuando sea requerido y manténgalo al menos 30 minutos después de terminar el trabajo.
-• Verifique que pisos, paredes y espacios ocultos estén libres de materiales combustibles.
-• Use el EPP adecuado: careta de soldar, gafas de seguridad, guantes, ropa resistente al fuego y protección auditiva.
-• Nunca anule dispositivos de seguridad ni retire protecciones para trabajar más rápido.
+Todos en el taller son responsables del orden y la limpieza — no solo la última persona que trabajó en el área. Un taller limpio es un taller más seguro.
+
+Si ve un peligro que no puede corregir de inmediato, avise a su supervisor para que se atienda.
 
 Recuerde:
-Los permisos de trabajo en caliente y los vigilantes existen porque muchos incendios comienzan DESPUÉS de terminar el trabajo. Si algo no parece seguro, deténgase y consulte. La producción nunca es más importante que la seguridad.
+Si no tiene tiempo para limpiarlo, no tiene tiempo para lastimarse por eso.
