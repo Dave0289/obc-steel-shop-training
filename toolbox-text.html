@@ -15,6 +15,11 @@
       --border:#e5e7eb;
       --radius:16px;
       --shadow:0 12px 35px rgba(0,0,0,.12);
+
+      /* success banner */
+      --ok-bg:#dcfce7;
+      --ok-border:#22c55e;
+      --ok-text:#166534;
     }
 
     *{ box-sizing:border-box; }
@@ -24,12 +29,24 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
       background:var(--bg);
-      padding:18px;
+      padding:16px;
     }
 
     .wrap{
       width:min(980px, 100%);
       margin:0 auto;
+    }
+
+    .success{
+      display:none;
+      background:var(--ok-bg);
+      border:1px solid var(--ok-border);
+      color:var(--ok-text);
+      padding:12px 14px;
+      border-radius:12px;
+      margin-bottom:14px;
+      font-size:14px;
+      font-weight:600;
     }
 
     .topbar{
@@ -38,22 +55,22 @@
       justify-content:space-between;
       gap:12px;
       flex-wrap:wrap;
-      margin-bottom:14px;
+      margin-bottom:12px;
     }
 
-    .title{
+    h1{
       margin:0;
       font-size:22px;
-      line-height:1.2;
     }
 
     .back{
       text-decoration:none;
       color:var(--ink);
       border:1px solid var(--border);
-      padding:10px 12px;
+      padding:8px 12px;
       border-radius:999px;
       background:#fff;
+      font-size:14px;
     }
 
     .card{
@@ -64,27 +81,20 @@
       padding:16px;
     }
 
-    .sectionTitle{
-      margin:0 0 8px 0;
-      font-size:16px;
-    }
-
     .talk{
       border:1px solid var(--border);
       border-radius:12px;
       padding:14px;
       background:#fafafa;
+      white-space:pre-wrap;
       line-height:1.35;
       font-size:15px;
-      white-space:pre-wrap;
-      overflow-wrap:anywhere;
-      min-height:220px;
+      min-height:200px;
     }
 
     .form{
       margin-top:14px;
       display:grid;
-      grid-template-columns: 1fr;
       gap:10px;
     }
 
@@ -95,7 +105,7 @@
 
     input[type="text"]{
       width:100%;
-      padding:12px 12px;
+      padding:12px;
       border:1px solid var(--border);
       border-radius:12px;
       font-size:16px;
@@ -103,8 +113,8 @@
 
     .row{
       display:flex;
-      align-items:flex-start;
       gap:10px;
+      align-items:flex-start;
     }
 
     .row input{
@@ -114,7 +124,7 @@
 
     .btn{
       width:100%;
-      padding:12px 14px;
+      padding:12px;
       border:none;
       border-radius:12px;
       background:var(--btn);
@@ -127,13 +137,18 @@
 
 <body>
   <div class="wrap">
+
+    <!-- SUCCESS BANNER (MATCHES TRAINING MODULES) -->
+    <div id="successMsg" class="success">
+      ✔ Training Submitted
+    </div>
+
     <div class="topbar">
-      <h1 class="title">Weekly Safety Toolbox Talk</h1>
+      <h1>Weekly Safety Toolbox Talk</h1>
       <a class="back" href="/index.html">← Back to Portal</a>
     </div>
 
     <div class="card">
-      <h2 class="sectionTitle">Toolbox Talk (English + Español)</h2>
       <div id="talk" class="talk">Loading toolbox talk…</div>
 
       <div class="form">
@@ -149,40 +164,38 @@
           </label>
         </div>
 
-        <button id="sendBtn" class="btn" type="button">Send Acknowledgment Email</button>
+        <button class="btn" onclick="sendEmail()">Send Acknowledgment</button>
       </div>
     </div>
+
   </div>
 
   <script>
-    const TO_EMAIL = "dave@ogdenbrothers.com";
-    const TALK_TXT_URL = "toolbox-talk.txt";
-    let toolboxText = "";
+    const EMAIL_TO = "dave@ogdenbrothers.com";
+    const TALK_FILE = "toolbox-talk.txt";
 
-    function todayISO(){
+    let talkText = "";
+
+    function today(){
       const d = new Date();
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      return `${yyyy}-${mm}-${dd}`;
+      return d.toISOString().split("T")[0];
     }
 
     async function loadTalk(){
       try{
-        const res = await fetch(`${TALK_TXT_URL}?v=${Date.now()}`, { cache: "no-store" });
-        if(!res.ok) throw new Error("Fetch failed");
-        toolboxText = await res.text();
-        document.getElementById("talk").textContent = toolboxText.trim() || "(Toolbox talk file is empty.)";
-      }catch(e){
+        const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
+        talkText = await res.text();
         document.getElementById("talk").textContent =
-          "ERROR: Could not load toolbox-talk.txt.\n\n" +
-          "Make sure toolbox-talk.txt is in the same folder as toolbox-text.html.";
+          talkText.trim() || "(Toolbox talk file is empty)";
+      }catch{
+        document.getElementById("talk").textContent =
+          "ERROR: toolbox-talk.txt not found.";
       }
     }
 
     function sendEmail(){
       const name = document.getElementById("name").value.trim();
-      const ack = document.getElementById("ack").checked;
+      const ack  = document.getElementById("ack").checked;
 
       if(!name){
         alert("Please enter your name.");
@@ -193,7 +206,7 @@
         return;
       }
 
-      const date = todayISO();
+      const date = today();
       const subject = `OBC Safety Training - Weekly Toolbox Talk - ${name} - ${date}`;
 
       const body =
@@ -202,21 +215,20 @@ Date: ${date}
 
 I acknowledge that I have read and understood today’s Weekly Safety Toolbox Talk.
 
-------------------------------------------------------------
-Toolbox Talk (English + Español):
-------------------------------------------------------------
-${toolboxText || "(Unable to load toolbox talk text.)"}
+------------------------------------
+${talkText}
 `;
 
       const mailto =
-        `mailto:${encodeURIComponent(TO_EMAIL)}` +
-        `?subject=${encodeURIComponent(subject)}` +
-        `&body=${encodeURIComponent(body)}`;
+        `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
+      // SHOW GREEN CONFIRMATION (LIKE MODULES)
+      document.getElementById("successMsg").style.display = "block";
+
+      // TRIGGER EMAIL CLIENT
       window.location.href = mailto;
     }
 
-    document.getElementById("sendBtn").addEventListener("click", sendEmail);
     loadTalk();
   </script>
 </body>
