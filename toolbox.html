@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OBC Steel Shop Training – Weekly Toolbox Talk</title>
+
+  <!-- Hard disable caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#0f1a30;
+      --card: rgba(255,255,255,.06);
+      --ink:#eaf0ff; --muted:#b7c4e0;
+      --accent:#5bc0be;
+      --radius:18px;
+      --shadow: 0 18px 45px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, #132a4a 0%, transparent 55%),
+        radial-gradient(1000px 700px at 80% 30%, #0b3b3a 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px;
+    }
+    .wrap{width:min(980px, 100%);}
+    .top{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:14px;
+    }
+    .brand h1{margin:0; font-size:22px;}
+    .brand p{margin:6px 0 0; color:var(--muted); font-size:14px;}
+    .badge{
+      border:1px solid rgba(91,192,190,.35);
+      background: rgba(91,192,190,.10);
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.4fr .6fr;
+      gap:16px;
+    }
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr;}
+      .badge{display:none;}
+    }
+    .card{
+      background: var(--card);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .body{padding:16px;}
+    .talk{
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:14px;
+      min-height:260px;
+      max-height:520px;
+      overflow:auto;
+      white-space:pre-wrap;
+      line-height:1.35;
+      font-size:14px;
+    }
+    label{
+      display:block;
+      margin:10px 0 6px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    input[type="text"]{
+      width:100%;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color:var(--ink);
+    }
+    .check{
+      display:flex;
+      gap:10px;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      margin-top:12px;
+    }
+    .btn{
+      margin-top:14px;
+      width:100%;
+      padding:12px;
+      border:0;
+      border-radius:14px;
+      background: linear-gradient(135deg, rgba(91,192,190,.95), rgba(49,164,161,.85));
+      font-weight:700;
+      cursor:pointer;
+    }
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+    .msg{
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:12px;
+      font-size:13px;
+      display:none;
+      background: rgba(91,192,190,.10);
+      border:1px solid rgba(91,192,190,.25);
+    }
+  </style>
+</head>
+
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <h1>Weekly Toolbox Talk</h1>
+      <p>Read the toolbox talk below and acknowledge completion.</p>
+    </div>
+    <div class="badge" id="badge">Loading…</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- Toolbox Talk -->
+    <section class="card">
+      <div class="card-h">
+        <strong id="talkTitle">Toolbox Talk</strong>
+        <span id="talkUpdated"></span>
+      </div>
+      <div class="body">
+        <div class="talk" id="talkBox">Loading toolbox talk…</div>
+      </div>
+    </section>
+
+    <!-- Acknowledgement -->
+    <section class="card">
+      <div class="card-h">
+        <strong>Acknowledgement</strong>
+      </div>
+      <div class="body">
+        <form id="ackForm">
+          <label>Employee Name</label>
+          <input id="empName" type="text" placeholder="First Last" required>
+
+          <div class="check">
+            <input id="confirm" type="checkbox">
+            <div>I confirm I have read and understand this toolbox talk.</div>
+          </div>
+
+          <button class="btn" id="sendBtn" disabled>
+            Confirm & Email Acknowledgement
+          </button>
+
+          <div class="msg" id="msg">
+            Your email client will open. Press Send to complete.
+          </div>
+
+          <input type="hidden" id="topicHidden">
+          <input type="hidden" id="updatedHidden">
+        </form>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+const EMAIL_TO = "Dave@Ogdenbrothers.com";
+const TALK_FILE = "toolbox-talk.txt";
+
+const el = {
+  badge: document.getElementById("badge"),
+  talkBox: document.getElementById("talkBox"),
+  talkTitle: document.getElementById("talkTitle"),
+  talkUpdated: document.getElementById("talkUpdated"),
+  empName: document.getElementById("empName"),
+  confirm: document.getElementById("confirm"),
+  sendBtn: document.getElementById("sendBtn"),
+  msg: document.getElementById("msg"),
+  topicHidden: document.getElementById("topicHidden"),
+  updatedHidden: document.getElementById("updatedHidden"),
+  form: document.getElementById("ackForm")
+};
+
+function parseTalk(text){
+  const lines = text.split(/\r?\n/);
+  let title = "Toolbox Talk";
+  let updated = "";
+  let i = 0;
+
+  if(lines[i]?.startsWith("TITLE:")){
+    title = lines[i].slice(6).trim();
+    i++;
+  }
+  if(lines[i]?.startsWith("UPDATED:")){
+    updated = lines[i].slice(8).trim();
+    i++;
+  }
+  if(lines[i] === "") i++;
+
+  return { title, updated, body: lines.slice(i).join("\n") };
+}
+
+async function loadTalk(){
+  const res = await fetch(`${TALK_FILE}?v=${Date.now()}`, { cache:"no-store" });
+  const txt = await res.text();
+  const talk = parseTalk(txt);
+
+  el.talkTitle.textContent = talk.title;
+  el.talkUpdated.textContent = talk.updated ? `Updated: ${talk.updated}` : "";
+  el.talkBox.textContent = talk.body;
+  el.topicHidden.value = talk.title;
+  el.updatedHidden.value = talk.updated;
+  el.badge.textContent = "Current";
+}
+
+function updateBtn(){
+  el.sendBtn.disabled = !(el.empName.value.trim() && el.confirm.checked);
+}
+el.empName.oninput = updateBtn;
+el.confirm.onchange = updateBtn;
+
+el.form.onsubmit = e => {
+  e.preventDefault();
+
+  const name = el.empName.value.trim();
+  const topic = el.topicHidden.value;
+  const date = el.updatedHidden.value || new Date().toISOString().slice(0,10);
+
+  const subject =
+    `OBC Steel Shop Training – Toolbox Talk – ${topic} – ${name} – ${date}`;
+
+  const body =
+`Toolbox Talk Acknowledgement
+
+Employee: ${name}
+Topic: ${topic}
+Date: ${date}
+
+I confirm I have read and understand this toolbox talk.`;
+
+  el.msg.style.display = "block";
+
+  window.location.href =
+    `mailto:${EMAIL_TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
+
+loadTalk();
+</script>
+</body>
+</html>
