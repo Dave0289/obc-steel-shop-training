@@ -1,7 +1,38 @@
-TITLE: Pinch Point Awareness
+TITLE: Hot Work Safety (Welding, Cutting, Grinding)
 UPDATED: 2026-01-09
 
-• Keep hands clear when positioning steel
-• Never place fingers between flanges
-• Use tools to align material
-• Stop the lift if unsure
+HOT WORK TOOLBOX TALK – ENGLISH
+
+Hot work includes welding, torch cutting, grinding, gouging, and any operation that produces sparks, heat, or open flame. These tasks are a leading cause of shop and jobsite fires and serious injuries when controls are ignored.
+
+Key Safety Points:
+• Always remove or protect combustible materials within 35 feet of hot work.
+• Use welding screens, fire blankets, or shields to contain sparks and slag.
+• Never perform hot work near flammable liquids, vapors, or gases.
+• Ensure fire extinguishers are present, charged, and immediately accessible.
+• Assign a fire watch when required and maintain it for at least 30 minutes after hot work stops.
+• Verify that floors, walls, and hidden spaces are free of combustible buildup.
+• Wear proper PPE: welding hood, safety glasses, gloves, FR clothing, and hearing protection.
+• Never bypass safety devices or remove guards to “get the job done faster.”
+
+Remember:
+Hot work permits and fire watches exist because fires often start AFTER the work is done. If something doesn’t feel right, stop and ask. Production is never more important than safety.
+
+------------------------------------------------------------
+
+CHARLA DE SEGURIDAD – TRABAJOS EN CALIENTE (ESPAÑOL)
+
+Los trabajos en caliente incluyen soldadura, corte con soplete, esmerilado y cualquier actividad que produzca chispas, calor o llama abierta. Estas tareas son una de las principales causas de incendios y lesiones graves cuando no se siguen los controles de seguridad.
+
+Puntos Clave de Seguridad:
+• Retire o proteja todos los materiales combustibles dentro de un radio de 35 pies.
+• Use pantallas de soldadura, mantas ignífugas o protecciones para contener chispas y escoria.
+• Nunca realice trabajos en caliente cerca de líquidos, vapores o gases inflamables.
+• Asegúrese de que los extintores estén presentes, cargados y accesibles.
+• Asigne un vigilante contra incendios cuando sea requerido y manténgalo al menos 30 minutos después de terminar el trabajo.
+• Verifique que pisos, paredes y espacios ocultos estén libres de materiales combustibles.
+• Use el EPP adecuado: careta de soldar, gafas de seguridad, guantes, ropa resistente al fuego y protección auditiva.
+• Nunca anule dispositivos de seguridad ni retire protecciones para trabajar más rápido.
+
+Recuerde:
+Los permisos de trabajo en caliente y los vigilantes existen porque muchos incendios comienzan DESPUÉS de terminar el trabajo. Si algo no parece seguro, deténgase y consulte. La producción nunca es más importante que la seguridad.
