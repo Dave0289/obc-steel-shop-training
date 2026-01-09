@@ -2,9 +2,9 @@ WEEKLY SAFETY TOOLBOX TALK – [TITLE]
 Date: [YYYY-MM-DD]
 
 ENGLISH:
-[Paste the English toolbox talk text here.]
+[paste the English talk here]
 
 ------------------------------------------------------------
 
 ESPAÑOL:
-[Pegue aquí la charla de seguridad en español.]
+[pegue la charla en español aquí]
