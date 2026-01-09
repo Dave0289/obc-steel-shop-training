@@ -138,7 +138,6 @@
       line-height:1;
     }
 
-    /* SVG icon styling to match your motif */
     .icon svg{
       width:24px;
       height:24px;
@@ -183,24 +182,15 @@
       .meta{ width:100%; text-align:center; }
     }
 
-    /* Coming Soon / Disabled cards */
-    .card.disabled{
-      opacity: .74;
-    }
+    .card.disabled{ opacity: .74; }
     .card.disabled:hover{
       transform: none;
       border-color: rgba(255,255,255,.10);
       box-shadow: 0 14px 28px rgba(0,0,0,.25);
     }
-    .card.disabled a{
-      pointer-events: none;
-      cursor: not-allowed;
-    }
+    .card.disabled a{ pointer-events: none; cursor: not-allowed; }
 
-    .statusRow{
-      margin-top:10px;
-      display:flex;
-    }
+    .statusRow{ margin-top:10px; display:flex; }
     .status{
       font-size:12px;
       padding:6px 12px;
@@ -229,11 +219,29 @@
       <div class="panelInner">
         <div class="grid">
 
+          <!-- ACTIVE (TOP) Weekly Toolbox Talks -->
+          <div class="card">
+            <a href="/toolbox-text.html" aria-label="Open Weekly Safety Toolbox Talks">
+              <div class="icon" aria-hidden="true">
+                <!-- Toolbox -->
+                <svg viewBox="0 0 24 24">
+                  <path d="M9 7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9V7z"/>
+                  <path d="M4 9h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9z"/>
+                  <path d="M4 13h16"/>
+                  <path d="M10 13v2h4v-2"/>
+                </svg>
+              </div>
+              <div>
+                <h2>Weekly Safety Toolbox Talks</h2>
+                <p>Read the weekly toolbox talk and send your acknowledgment email.</p>
+              </div>
+            </a>
+          </div>
+
           <!-- ACTIVE -->
           <div class="card">
             <a href="/overhead-crane.html" aria-label="Open Overhead Crane & Rigging Training">
               <div class="icon" aria-hidden="true">
-                <!-- Overhead crane / hook -->
                 <svg viewBox="0 0 24 24">
                   <path d="M4 6h16"/>
                   <path d="M7 6v6h10V6"/>
@@ -253,7 +261,6 @@
           <div class="card">
             <a href="/forklift.html" aria-label="Open Forklift Training">
               <div class="icon" aria-hidden="true">
-                <!-- Forklift -->
                 <svg viewBox="0 0 24 24">
                   <path d="M4 16h9V7H7"/>
                   <path d="M13 16h4V9h-4"/>
@@ -269,11 +276,10 @@
             </a>
           </div>
 
-          <!-- ACTIVE (NEW) -->
+          <!-- ACTIVE -->
           <div class="card">
             <a href="/aerial-scissor.html" aria-label="Open Aerial & Scissor Lift Training">
               <div class="icon" aria-hidden="true">
-                <!-- Aerial/Scissor lift: platform + scissor X -->
                 <svg viewBox="0 0 24 24">
                   <path d="M6 18h12"/>
                   <path d="M8 18l4-7l4 7"/>
@@ -290,30 +296,10 @@
             </a>
           </div>
 
-          <!-- ACTIVE (NEW) Weekly Toolbox Talks -->
-          <div class="card">
-            <a href="/toolbox-text.html" aria-label="Open Weekly Safety Toolbox Talks">
-              <div class="icon" aria-hidden="true">
-                <!-- Toolbox -->
-                <svg viewBox="0 0 24 24">
-                  <path d="M9 7a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2H9V7z"/>
-                  <path d="M4 9h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9z"/>
-                  <path d="M4 13h16"/>
-                  <path d="M10 13v2h4v-2"/>
-                </svg>
-              </div>
-              <div>
-                <h2>Weekly Safety Toolbox Talks</h2>
-                <p>Review the current toolbox talk and submit your name to confirm participation.</p>
-              </div>
-            </a>
-          </div>
-
           <!-- COMING SOON -->
           <div class="card disabled">
             <a href="#" aria-label="Fall Protection (Coming Soon)">
               <div class="icon" aria-hidden="true">
-                <!-- Fall protection: harness + anchor -->
                 <svg viewBox="0 0 24 24">
                   <path d="M12 3a2 2 0 1 0 0 4a2 2 0 0 0 0-4z"/>
                   <path d="M8 21v-6l2-3"/>
@@ -337,7 +323,6 @@
           <div class="card disabled">
             <a href="#" aria-label="Confined Space (Coming Soon)">
               <div class="icon" aria-hidden="true">
-                <!-- Confined space: circle hatch + alert -->
                 <svg viewBox="0 0 24 24">
                   <path d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0-18z"/>
                   <path d="M12 8v5"/>
@@ -349,82 +334,4 @@
               <div>
                 <h2>Confined Space</h2>
                 <p>Hazard awareness, entry requirements, monitoring, and rescue basics.</p>
-                <div class="statusRow"><span class="status">Coming Soon</span></div>
-              </div>
-            </a>
-          </div>
-
-          <!-- COMING SOON -->
-          <div class="card disabled">
-            <a href="#" aria-label="LOTO (Coming Soon)">
-              <div class="icon" aria-hidden="true">
-                <!-- LOTO: lock -->
-                <svg viewBox="0 0 24 24">
-                  <path d="M7 11h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2z"/>
-                  <path d="M9 11V8a3 3 0 0 1 6 0v3"/>
-                  <path d="M12 15v2"/>
-                </svg>
-              </div>
-              <div>
-                <h2>LOTO (Lockout / Tagout)</h2>
-                <p>Energy isolation basics, procedures, and preventing unexpected startup.</p>
-                <div class="statusRow"><span class="status">Coming Soon</span></div>
-              </div>
-            </a>
-          </div>
-
-          <!-- COMING SOON -->
-          <div class="card disabled">
-            <a href="#" aria-label="Silica Awareness (Coming Soon)">
-              <div class="icon" aria-hidden="true">
-                <!-- Silica: respirator/mask + particles -->
-                <svg viewBox="0 0 24 24">
-                  <path d="M8 10c0 4 2 8 4 8s4-4 4-8"/>
-                  <path d="M7 10c-1 0-2 1-2 2v1"/>
-                  <path d="M17 10c1 0 2 1 2 2v1"/>
-                  <path d="M9.5 13h5"/>
-                  <path d="M6 7l1-1"/>
-                  <path d="M18 7l-1-1"/>
-                  <path d="M5 15h.01"/>
-                  <path d="M19 15h.01"/>
-                </svg>
-              </div>
-              <div>
-                <h2>Silica Awareness</h2>
-                <p>Exposure risks, controls, and basic protective practices for silica dust.</p>
-                <div class="statusRow"><span class="status">Coming Soon</span></div>
-              </div>
-            </a>
-          </div>
-
-          <!-- COMING SOON -->
-          <div class="card disabled">
-            <a href="#" aria-label="First Aid / CPR / AED (Coming Soon)">
-              <div class="icon" aria-hidden="true">
-                <!-- First Aid: cross -->
-                <svg viewBox="0 0 24 24">
-                  <path d="M10 4h4v4h4v4h-4v4h-4v-4H6V8h4V4z"/>
-                </svg>
-              </div>
-              <div>
-                <h2>First Aid / CPR / AED</h2>
-                <p>Emergency response basics and AED awareness for jobsite readiness.</p>
-                <div class="statusRow"><span class="status">Coming Soon</span></div>
-              </div>
-            </a>
-          </div>
-
-        </div>
-
-        <div class="cta">
-          Tap a training module above to begin.
-        </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      © OBC Steel Shop • Training Portal
-    </div>
-  </div>
-</body>
-</html>
+                <div class="statusRow"><span class="status">Coming Soon
